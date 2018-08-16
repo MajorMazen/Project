@@ -1,0 +1,46 @@
+(1) cd file
+(2) npm install -g create-react-app
+(3) create-react-app frontend
+(4) cd frontend
+(5) npm install
+(6) npm start
+
+Start editing your files and inspect elements using react chrome add-on
+
+(7) create a new folder called components
+(8) create Posts and PostLink component classes
+(9) Add bootstrap to your html
+(10) Add the signup and signin forms' components
+(11) Add router handling for either /login /signup or / (home)
+npm install react-router-dom
+router import in ./src/index.js
+(12) handle valid tokens (authentication file)
+npm install jwt-decode
+(13) call for valid token inspection in posts.js before displaying posts & postlinks, otherwise display signup form
+(login link, will load login component through the router)
+(14) import authservice.js and signup.js modules in signin/signup forms
+(15) Add event handlers to the form, calling network/authservice.js and signup.js
+(16) Add classes for posting and getting json files to and from the server 
+(17) Attach postget.js in postlinkform and posts components
+(18) test forms state update in chrome's react add-on (submit form right after the /login route component)
+(19) letting postlinkform use post fn in postget.js
+(20) letting posts component use get fn in postget.js
+
+testing all forms submission need the database running, testing postget.js can be used with json placeholder website
+
+(21) posts.js works
+(22) pass href urls (in navigation bar) as a {this.props.url} to components for api fetch
+(23) test if forms connect to dB
+(24) create more routes for more api requests
+(25) work the python fns on separate files
+(26) delete APIConnect.js
+
+https://hptechblogs.com/using-json-web-token-react/
+https://medium.com/@anneeb/redirecting-in-react-4de5e517354a
+https://www.hongkiat.com/blog/jquery-swipe-slider/
+https://www.youtube.com/watch?v=97fT5ZOcpp4
+https://www.youtube.com/watch?v=A71aqufiNtQ
+https://www.youtube.com/watch?v=93p3LxR9xfM
+https://stackoverflow.com/questions/43871637/no-access-control-allow-origin-header-is-present-on-the-requested-resource-whe
+
+html thumbnails
