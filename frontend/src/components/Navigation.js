@@ -22,14 +22,14 @@ class Navigation extends Component {
                 }}>
 
                     <div style={{
-                        float: 'left', display: 'inline-block'
+                        float: 'left'
                     }}>
 
                         <a className="navbar-brand" href="#">
                             <img src="./img/N_letter.jpg" width="30" height="30" className="d-inline-block align-top" alt="" />
                             News Net
                         </a>
-                        <a className="nav-item mr-5" href="#">
+                        <a className="nav-item mr-3" href="#">
                             User Profile
                         </a>
                         <a className="nav-item" href="/dashboard/01227469070">
@@ -38,15 +38,15 @@ class Navigation extends Component {
                     </div>
 
                     <div style={{
-                        float: 'right', display: 'inline-block'
+                        float: 'right'
                     }}>
 
                         <form className="form-inline">
-                            <a className="nav-item mr-5" href="#" onClick={this.logOut}>
+                            <a className="nav-item mr-3" href="#" onClick={this.logOut}>
                                 Log Out
                             </a>
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                            <input className="form-control" type="search" placeholder="Search" aria-label="Search" />
+                            <button className="btn btn-primary" type="submit">Search</button>
                         </form>
 
                     </div>
