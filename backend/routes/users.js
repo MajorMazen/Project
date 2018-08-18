@@ -71,8 +71,7 @@ router.post('/login', (req, res) => {
 
   User.findOne({ email }).then(user => {
     if (!user) {
-      return res.status(400).json({ email: "User account does not exist" });
-
+      return res.status(400).json({ email: "User account does not exist", msg: { email } });
     }
 
     else {

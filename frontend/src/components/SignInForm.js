@@ -28,11 +28,13 @@ class SignInForm extends Component {
         try {
             //token set inside fn module
             const response = await this.Auth.login(this.state.email, this.state.password);
+            //set token
             console.log(response);
-            console.log(this.Auth.loggedIn());
+            this.Auth.setToken(response);
             this.setState({
                 loginSucces: response.success
             })
+            this.props.history.push('/');
         } catch (e) {
             this.setState({
                 error: e.email
@@ -41,9 +43,10 @@ class SignInForm extends Component {
     }
 
     //add this componentWillMount method to prevent it staying on the login page after already having logged in
-    componentWillMount() {
-        if (this.Auth.loggedIn())
-            this.props.history.replace('/');
+    componentDidMount() {
+        if (this.Auth.loggedIn()) {
+            this.props.history.push('/');
+        }
     }
 
     render() {

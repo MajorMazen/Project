@@ -28,12 +28,16 @@ npm install jwt-decode
 
 testing all forms submission need the database running, testing postget.js can be used with json placeholder website
 
-(21) posts.js works
 (22) pass href urls (in navigation bar) as a {this.props.url} to components for api fetch
-(23) test if forms connect to dB
-(24) create more routes for more api requests
-(25) work the python fns on separate files
-(26) delete APIConnect.js
+(23) create more routes for more api requests
+(24) create logout route
+(25) put Navigation ahead of posts
+(26) create postlink form
+(27) work the python fns on separate files
+(28) remove id from frontend dashboard and backend API definition
+(29) Add Layout component at the top
+
+send email to ahmad
 
 https://hptechblogs.com/using-json-web-token-react/
 https://medium.com/@anneeb/redirecting-in-react-4de5e517354a
@@ -42,5 +46,9 @@ https://www.youtube.com/watch?v=97fT5ZOcpp4
 https://www.youtube.com/watch?v=A71aqufiNtQ
 https://www.youtube.com/watch?v=93p3LxR9xfM
 https://stackoverflow.com/questions/43871637/no-access-control-allow-origin-header-is-present-on-the-requested-resource-whe
+https://github.com/reactjs/react-router-tutorial/tree/master/lessons/06-params
+https://auth0.com/blog/reactjs-authentication-tutorial/
+
+
 
 html thumbnails

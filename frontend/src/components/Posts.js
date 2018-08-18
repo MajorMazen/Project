@@ -20,12 +20,14 @@ class Posts extends Component {
 
     //re-run each time module is loaded
     async componentDidMount() {
-        // this.getpost(this.props.url);
-        const data = await this.PostGet.safeGet(this.props.url);
 
-        this.setState({
-            posts: data
-        })
+        if (this.Auth.loggedIn()) {
+            const data = await this.PostGet.safeGet('http://localhost:5000/dashboard/' + this.props.match.params.id);
+
+            this.setState({
+                posts: data.data//defined as data inside data
+            })
+        }
 
     }
 
@@ -33,13 +35,13 @@ class Posts extends Component {
     render() {
 
         //view dashboard for loggedin users
-        //enable if signup/sign in works
-        //if (this.Auth.loggedIn()) {
-        if (true) {
+        if (this.Auth.loggedIn()) {
+            // if (false) {
+            console.log(this.state.posts);
             const postItems = this.state.posts.map(post => (
-                <div key={post.id}>
-                    <h3>{post.title}</h3>
-                    <p>{post.body}</p>
+                <div key={post.name}>
+                    <h3>{post.Profession}</h3>
+                    <p>{post.location}</p>
                 </div>
             ));
 

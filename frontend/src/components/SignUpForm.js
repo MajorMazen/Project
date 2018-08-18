@@ -28,11 +28,14 @@ class SignUpForm extends Component {
         try {
             //token set inside fn module
             const response = await this.SignUp.signup(this.state.name, this.state.email, this.state.password);
+            //set token
             console.log(response);
-            console.log(this.Auth.loggedIn());
+            this.Auth.setToken(response);
+
             this.setState({
                 loginSucces: response.success
             })
+            this.props.history.push('/');
         } catch (e) {
             this.setState({
                 error: e.email
@@ -41,9 +44,10 @@ class SignUpForm extends Component {
     }
 
     //add this componentWillMount method to prevent it staying on the signup page after already having signed up
-    componentWillMount() {
-        if (this.Auth.loggedIn())
-            this.props.history.replace('/');
+    componentDidMount() {
+        if (this.Auth.loggedIn()) {
+            this.props.history.push('/');
+        }
     }
 
     //render fn

@@ -37,7 +37,8 @@ app.use('/users', users);
 // Allowing private routes (users should be logged in with a valid token to view)
 // in Postman, enter the link http://localhost:5000/dashboard and enter the token value from a logged in user in
 // Header -> Key: Authorization
-app.get('/dashboard', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/dashboard/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  console.log(req.params.id);
   return res.json({
     data: [
       {

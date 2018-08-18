@@ -1,32 +1,25 @@
 
 import decode from 'jwt-decode';
+import PostGet from './PostGet'
+
 export default class AuthService {
     // Initializing and tying fns to global pointer scope
     constructor(domain) {
         this.domain = domain || 'http://localhost:5000' // API server domain
-        this.fetch = this.fetch.bind(this) // React binding stuff
-        this.login = this.login.bind(this)
-        this.getProfile = this.getProfile.bind(this)
+        this.PostGet = new PostGet();
     }
 
-    login(email, password) {
+    //token has to be set outside the scope of this fn
+    login = (email, password) => {
         // Get a token from api server using the fetch api
-        return this.fetch(`${this.domain}/users/login`, {
-            method: 'POST',
-            body: JSON.stringify({
-                email,
-                password
-            })
-        }).then(res => {
-            this.setToken(res.token) // Setting the token in localStorage
-            return Promise.resolve(res);
-        })
+        const url = `${this.domain}/users/login`;
+        return this.PostGet.safePost(url, email, password)
     }
 
     loggedIn() {
         // Checks if there is a saved token and it's still valid
         const token = this.getToken() // GEtting token from localstorage
-        return !!token && !this.isTokenExpired(token) // handwaiving here
+        return !!token || this.isTokenExpired(token) // handwaiving here
     }
 
     isTokenExpired(token) {
@@ -43,14 +36,15 @@ export default class AuthService {
         }
     }
 
-    setToken(idToken) {
+    setToken = (response) => {
         // Saves user token to localStorage
-        localStorage.setItem('id_token', idToken)
+        let idToken = response.token;
+        window.localStorage.setItem('id_token', idToken)
     }
 
     getToken() {
         // Retrieves the user token from localStorage
-        return localStorage.getItem('id_token')
+        return window.localStorage.getItem('id_token')
     }
 
     logout() {
@@ -63,27 +57,6 @@ export default class AuthService {
         return decode(this.getToken());
     }
 
-
-    fetch(url, options) {
-        // performs api calls sending the required authentication headers
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-
-        // Setting Authorization header
-        // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
-        if (this.loggedIn()) {
-            headers['Authorization'] = 'Bearer ' + this.getToken()
-        }
-
-        return fetch(url, {
-            headers,
-            ...options
-        })
-            .then(this._checkStatus)
-            .then(response => response.json())
-    }
 
     _checkStatus(response) {
         // raises an error in case response status is not a success

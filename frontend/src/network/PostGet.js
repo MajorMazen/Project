@@ -1,4 +1,4 @@
-//currently not working!!!!!
+
 export default class PostGet {
 
     constructor() {
@@ -8,6 +8,7 @@ export default class PostGet {
 
     //posting data to server API (arbitrary url)
     safePost(url, email, password) {
+
         return new Promise((resolve, reject) => {
             return fetch(url, {
                 method: "post",
@@ -31,17 +32,19 @@ export default class PostGet {
 
     //getting data from server API (arbitrary url)
     safeGet(url) {
+
         return new Promise((resolve, reject) => {
             return fetch(url, {
                 method: "get",
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
-                    "Authorization": localStorage.getItem("token")//authorized user account
+                    Authorization: localStorage.getItem('id_token'),
+                    "Access-Control-Allow-Origin": "http://localhost:3000"
                 },
             }).then(response => {
                 response.json().then(json => {
                     if (!response.ok) {
-                        return reject(json);
+                        reject(json);
                     }
                     resolve(json);//.then(json => { return json });
                 }).catch(e => reject(e));
@@ -49,33 +52,29 @@ export default class PostGet {
         })
     }
 
-    /*
-    //getting data from server API (arbitrary url)
-    getpost(url) {
-        fetch(url,
-            {
-                method: "get",
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8",
-                    "Authorization": localStorage.getItem("token")//authorized user account
-                }
-            })
-            .then(res => res.json())
-            .then(data => this.setState({ posts: data }));
-    }
-
     //posting data to server API (arbitrary url)
-    postreq(url, email, password) {
-        fetch(url, {
-            method: "post",
-            headers: { "Content-Type": "application/json; charset=utf-8" },
-            body: JSON.stringify({
-                email,
-                password
-            })
-        }).then(res => res.json())
-            .then(data => this.setState({ posts: data }))
+    safePost2(url, name, email, password) {
+
+        return new Promise((resolve, reject) => {
+            return fetch(url, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
+            }).then(response => {
+                response.json().then(json => {
+                    if (!response.ok) {
+                        return reject(json);
+                    }
+                    resolve(json);
+                }).catch(e => reject(e));
+            }).catch(e => reject(e))
+        })
     }
-*/
 
 }
