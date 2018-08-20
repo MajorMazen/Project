@@ -30,15 +30,15 @@ mongoose
   .catch(err => console.log(err));
 
 //test API in postman on: http://localhost:5000/ to see hello json
-app.get('/', (req, res) => res.json({ msg: "hello my name is" }));
+//app.get('/', (req, res) => res.json({ msg: "hello my name is" }));
 app.get('/about', (req, res) => res.send("Our company was founded in 2015"));
 app.use('/users', users);
 
 // Allowing private routes (users should be logged in with a valid token to view)
 // in Postman, enter the link http://localhost:5000/dashboard and enter the token value from a logged in user in
 // Header -> Key: Authorization
-app.get('/dashboard/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  console.log(req.params.id);
+app.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+  //console.log(req.params.id);
   return res.json({
     data: [
       {

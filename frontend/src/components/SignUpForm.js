@@ -26,7 +26,6 @@ class SignUpForm extends Component {
         e.preventDefault();
 
         try {
-            //token set inside fn module
             const response = await this.SignUp.signup(this.state.name, this.state.email, this.state.password);
             //set token
             console.log(response);
@@ -35,6 +34,7 @@ class SignUpForm extends Component {
             this.setState({
                 loginSucces: response.success
             })
+            //re-route to home
             this.props.history.push('/');
         } catch (e) {
             this.setState({
@@ -46,7 +46,7 @@ class SignUpForm extends Component {
     //add this componentWillMount method to prevent it staying on the signup page after already having signed up
     componentDidMount() {
         if (this.Auth.loggedIn()) {
-            this.props.history.push('/');
+            this.props.history.push('/signup');
         }
     }
 

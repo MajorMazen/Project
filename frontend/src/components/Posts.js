@@ -1,43 +1,46 @@
 import React, { Component } from 'react';
-import PostLinkForm from './PostLinkForm'
 import PostGet from '../network/PostGet'
-import AuthService from '../network/AuthService'
-import { Redirect } from 'react-router-dom'
 
 class Posts extends Component {
     //check for logged in users, instantiate public variable Auth
     constructor(props) {
         super(props);
 
-        this.Auth = new AuthService();
         this.PostGet = new PostGet();
 
         this.state = {
-            posts: []
+            posts: [],
+            success: false
         }
     }
 
-
     //re-run each time module is loaded
-    async componentDidMount() {
-
-        if (this.Auth.loggedIn()) {
-            const data = await this.PostGet.safeGet('http://localhost:5000/dashboard/' + this.props.match.params.id);
+    async componentWillMount() {
+        try {
+            const data = await this.PostGet.safeGet('http://localhost:5000' + this.props.url);
 
             this.setState({
-                posts: data.data//defined as data inside data
+                posts: data.data,//defined as data inside data
+                success: true
+            })
+
+        }
+        catch (e) {
+            this.setState({
+                success: false
             })
         }
+    }
 
+    //automatically re-renders once component state is changed
+    shouldComponentUpdate() {
+        return true
     }
 
     //render fn
     render() {
 
-        //view dashboard for loggedin users
-        if (this.Auth.loggedIn()) {
-            // if (false) {
-            console.log(this.state.posts);
+        if (this.state.success) {
             const postItems = this.state.posts.map(post => (
                 <div key={post.name}>
                     <h3>{post.Profession}</h3>
@@ -46,23 +49,16 @@ class Posts extends Component {
             ));
 
             return (
-                //dummy
-                // <div className="Posts">
-                // <Category>
-                //    <Sports value="blabla" />
-                //   <Politics value="blabla" />
-                //    <Science value="blabla" />
-                //  </Category>
-                //  <PostLinkForm />
-                // </div>
                 <div className="Posts">
                     {postItems}
-                    <PostLinkForm />
                 </div>
-            );
+            )
         }
-        //else redirect to signup page
-        else { return (<Redirect to='/signup' />) } //<SignUpForm />
+
+        else {
+            return (<div className="Posts">
+                No Posts to display</div>)
+        }
     }
 }
 

@@ -26,7 +26,6 @@ class SignInForm extends Component {
         e.preventDefault();
 
         try {
-            //token set inside fn module
             const response = await this.Auth.login(this.state.email, this.state.password);
             //set token
             console.log(response);
@@ -34,6 +33,7 @@ class SignInForm extends Component {
             this.setState({
                 loginSucces: response.success
             })
+            //re-route to home
             this.props.history.push('/');
         } catch (e) {
             this.setState({

@@ -48,7 +48,7 @@ https://www.youtube.com/watch?v=93p3LxR9xfM
 https://stackoverflow.com/questions/43871637/no-access-control-allow-origin-header-is-present-on-the-requested-resource-whe
 https://github.com/reactjs/react-router-tutorial/tree/master/lessons/06-params
 https://auth0.com/blog/reactjs-authentication-tutorial/
+https://serverless-stack.com/chapters/redirect-on-login-and-logout.html
 
-
-
+href and Link
 html thumbnails

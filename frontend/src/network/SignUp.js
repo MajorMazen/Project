@@ -1,5 +1,4 @@
 
-import decode from 'jwt-decode';
 import PostGet from './PostGet'
 
 export default class SignUp {
