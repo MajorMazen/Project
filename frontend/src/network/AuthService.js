@@ -13,7 +13,7 @@ export default class AuthService {
     login = (email, password) => {
         // Get a token from api server using the fetch api
         const url = `${this.domain}/users/login`;
-        return this.PostGet.safePost(url, email, password)
+        return this.PostGet.safeLogin(url, email, password)
     }
 
     loggedIn() {

@@ -8,6 +8,7 @@ class Posts extends Component {
 
         this.PostGet = new PostGet();
 
+        //properly set state with posts of following ids
         this.state = {
             posts: [],
             success: false
@@ -27,7 +28,7 @@ class Posts extends Component {
         }
         catch (e) {
             this.setState({
-                success: false
+                success: false //print problem
             })
         }
     }

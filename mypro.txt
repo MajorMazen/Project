@@ -49,6 +49,8 @@ https://stackoverflow.com/questions/43871637/no-access-control-allow-origin-head
 https://github.com/reactjs/react-router-tutorial/tree/master/lessons/06-params
 https://auth0.com/blog/reactjs-authentication-tutorial/
 https://serverless-stack.com/chapters/redirect-on-login-and-logout.html
+https://stackoverflow.com/questions/18148166/find-document-with-array-that-contains-a-specific-value
+https://stackoverflow.com/questions/8217419/how-to-determine-if-javascript-array-contains-an-object-with-an-attribute-that-e
 
 href and Link
 html thumbnails

@@ -86,20 +86,10 @@ router.post('/login', (req, res) => {
 
           //tokens are also secured, are hashed through salt which i secretly define in keys.js
           // Sign Token
-          jwt.sign(
-            payload,
-            keys.secret,
-            { expiresIn: 3600 },
-            (err, token) => {
-              res.json({
-                success: true,
-                token: 'Bearer ' + token,
-                name: user.name
-              });
-            }
+          jwt.sign(payload, keys.secret, { expiresIn: 3600 }, (err, token) => {
+            res.json({ success: true, token: 'Bearer ' + token, name: user.name });
+          }
           );
-
-
         }
 
         else {
@@ -112,26 +102,48 @@ router.post('/login', (req, res) => {
 });
 
 //follow 
-router.post(
-  "/follow/:id",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const followeeId = req.params.id;
+router.post("/follow/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
 
-    User.findById(followeeId, (err, user) => {
+  const followeeId = req.params.id;
+  User.findById(followeeId, (err, user) => {
+    if (err) {
+      return res.status(400).json({ message: "User does not exist" });
+    }
+
+    // console.log(req.user.findById);
+    User.findById(req.user._id, (err, follower) => {
+      follower.following.push(user);
+      follower.save().then(() => {
+        return res.status(200).json({ message: "Success" });
+      });
+    });
+  });
+}
+);
+
+router.get("/following/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
+
+  const followeeId = req.params.id;
+  User.findById(followeeId, (err, user) => {
+    if (err) {
+      return res.status(400).json({ message: "User does not exist" });
+    }
+
+    User.findById(req.user._id, (err, follower) => {
       if (err) {
         return res.status(400).json({ message: "User does not exist" });
       }
 
-      // console.log(req.user.findById);
-      User.findById(req.user._id, (err, follower) => {
-        follower.followers.push(user);
-        follower.save().then(() => {
-          return res.status(200).json({ message: "Success" });
-        });
-      });
-    });
-  }
-);
+      if (follower.following == followeeId) {
+        return res.status(200).json({ message: "true" });
+      }
+      else {
+        return res.status(200).json({ message: "false" });
+      }
+
+    })
+  })
+})
+
 
 module.exports = router;

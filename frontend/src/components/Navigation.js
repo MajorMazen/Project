@@ -11,6 +11,8 @@ class Navigation extends Component {
 
     logOut = () => {
         this.Auth.logout();
+        //withRouter enables a fn not a component (hasn't this.props) to push routes
+        //components otherwise use the package Redirect from react-router-dom
         this.props.history.push("/login");
     }
 
@@ -27,12 +29,12 @@ class Navigation extends Component {
                     <a className="navbar-brand" href="/">
                         <img src="./img/N_letter.jpg" width="5" height="5" className="d-inline-block align-top" alt="" />
                         News Net</a>
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+                    <ul className="navbar-nav mr-auto">
+                        <li className="nav-item active">
                             <a className="nav-link" href="/user">
                                 User Profile</a>
                         </li>
-                        <li class="nav-item ">
+                        <li className="nav-item ">
                             <a className="nav-link" href="" onClick={this.logOut}>
                                 Log Out</a>
                         </li>
@@ -46,24 +48,24 @@ class Navigation extends Component {
                 </nav>
 
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+                    <ul className="navbar-nav mr-auto">
+                        <li className="nav-item active">
                             <a className="nav-link" href="/tag/business">
                                 Business</a>
                         </li>
-                        <li class="nav-item">
+                        <li className="nav-item">
                             <a className="nav-link" href="/tag/entertainment">
                                 Entertainment</a>
                         </li>
-                        <li class="nav-item">
+                        <li className="nav-item">
                             <a className="nav-link" href="/tag/politics">
                                 Politics</a>
                         </li>
-                        <li class="nav-item">
+                        <li className="nav-item">
                             <a className="nav-link" href="/tag/sport">
                                 Sport</a>
                         </li>
-                        <li class="nav-item">
+                        <li className="nav-item">
                             <a className="nav-link" href="/tag/technology">
                                 Technology</a>
                         </li>

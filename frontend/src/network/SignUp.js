@@ -12,7 +12,7 @@ export default class SignUp {
     signup = (name, email, password) => {
         // Get a token from api server using the fetch api
         const url = `${this.domain}/users/register`;
-        return this.PostGet.safePost2(url, name, email, password)
+        return this.PostGet.safeRegister(url, name, email, password)
     }
 
 
