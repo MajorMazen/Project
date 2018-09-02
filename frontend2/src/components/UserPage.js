@@ -9,10 +9,9 @@ class UserPage extends Component {
         super(props);
         this.state = {
             success: false,
-            //followed: false
         }
         this.PostGet = new PostGet();
-        //check if not me!
+        //get id passed through the router link
         this.id = this.props.match.params.id;
     }
 
@@ -57,6 +56,7 @@ class UserPage extends Component {
                     <button className="btn btn-primary" type="submit" disabled={this.state.followed} onClick={this.followUser}>Follow User</button>
                 </nav>
 
+                {/* <Posts url={'/user/' + this.id} /> */}
                 <Posts url='/' />
 
             </div>

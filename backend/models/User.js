@@ -25,7 +25,9 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now()
   },
-  following: [{ type: Schema.Types.ObjectId, ref: "users", required: false, default: {} }]
+  following: [{ type: Schema.Types.ObjectId, ref: "users", required: false, default: {} }],
+  // followingtopics: [{ type: Schema.Types.ObjectId, ref: "topics", required: false, default: {} }]
+  followers: [{ type: Schema.Types.ObjectId, ref: "users", required: false, default: {} }],
 });
 
 //export it as an output

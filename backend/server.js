@@ -1,7 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+
 const users = require('./routes/users');
+const posts = require('./routes/posts');
+
+const User = require('./models/User');
+const Post = require('./models/Post');
+
 const cors = require('cors')
 // Allowing private routes (users should be logged in with a valid token to view)
 const passport = require('passport');
@@ -33,33 +39,18 @@ mongoose
 //app.get('/', (req, res) => res.json({ msg: "hello my name is" }));
 app.get('/about', (req, res) => res.send("Our company was founded in 2015"));
 app.use('/users', users);
+app.use('/posts', posts);
 
-// Allowing private routes (users should be logged in with a valid token to view)
-// in Postman, enter the link http://localhost:5000/dashboard and enter the token value from a logged in user in
-// Header -> Key: Authorization
+
 app.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  //console.log(req.params.id);
-  return res.json({
-    data: [
-      {
-        "name": "Top Secret Agent 1",
-        "profession": "CIA Operative",
-        "location": "Lebanon"
-      },
-      {
-        "name": "Tom Cruise",
-        "profession": "Black Ops",
-        "location": "Lisbon"
-      },
-      {
-        "name": "James Bond 007",
-        "profession": "MI6 Agent",
-        "location": "London"
-      }
-    ]
+  Post.find({ userid: req.user.following }, (err, posts) => {
+    if (err) {
+      return res.status(400).json({ message: "No posts to display" })
+    }
+
+    return res.status(200).json(posts);
   })
 })//else will send unauthorized
-
 
 
 const port = process.env.PORT || 5000;

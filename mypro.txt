@@ -5,39 +5,8 @@
 (5) npm install
 (6) npm start
 
-Start editing your files and inspect elements using react chrome add-on
-
-(7) create a new folder called components
-(8) create Posts and PostLink component classes
-(9) Add bootstrap to your html
-(10) Add the signup and signin forms' components
-(11) Add router handling for either /login /signup or / (home)
-npm install react-router-dom
-router import in ./src/index.js
-(12) handle valid tokens (authentication file)
-npm install jwt-decode
-(13) call for valid token inspection in posts.js before displaying posts & postlinks, otherwise display signup form
-(login link, will load login component through the router)
-(14) import authservice.js and signup.js modules in signin/signup forms
-(15) Add event handlers to the form, calling network/authservice.js and signup.js
-(16) Add classes for posting and getting json files to and from the server 
-(17) Attach postget.js in postlinkform and posts components
-(18) test forms state update in chrome's react add-on (submit form right after the /login route component)
-(19) letting postlinkform use post fn in postget.js
-(20) letting posts component use get fn in postget.js
-
-testing all forms submission need the database running, testing postget.js can be used with json placeholder website
-
-(22) pass href urls (in navigation bar) as a {this.props.url} to components for api fetch
-(23) create more routes for more api requests
-(24) create logout route
-(25) put Navigation ahead of posts
-(26) create postlink form
-(27) work the python fns on separate files
-(28) remove id from frontend dashboard and backend API definition
-(29) Add Layout component at the top
-
-send email to ahmad
+running authentication on component will mount - to fetch last name and token saved in the local storage and into the state
+have an error division for each component
 
 https://hptechblogs.com/using-json-web-token-react/
 https://medium.com/@anneeb/redirecting-in-react-4de5e517354a
@@ -51,6 +20,47 @@ https://auth0.com/blog/reactjs-authentication-tutorial/
 https://serverless-stack.com/chapters/redirect-on-login-and-logout.html
 https://stackoverflow.com/questions/18148166/find-document-with-array-that-contains-a-specific-value
 https://stackoverflow.com/questions/8217419/how-to-determine-if-javascript-array-contains-an-object-with-an-attribute-that-e
+https://www.npmjs.com/package/mongoose-type-url
+https://medium.freecodecamp.org/where-do-i-belong-a-guide-to-saving-react-component-data-in-state-store-static-and-this-c49b335e2a00
+http://www.codingpedia.org/ama/how-to-get-the-title-of-a-remote-web-page-using-javascript-and-nodejs
+https://www.valentinog.com/blog/http-requests-node-js-async-await/
+https://redux.js.org/api/createstore
+https://medium.freecodecamp.org/where-do-i-belong-a-guide-to-saving-react-component-data-in-state-store-static-and-this-c49b335e2a00
+https://stackoverflow.com/questions/46669520/where-to-store-global-scope-when-using-react-router
+https://github.com/reduxjs/redux/blob/master/docs/recipes/reducers/UsingCombineReducers.md
+https://redux.js.org/api/combinereducers
+https://github.com/reduxjs/redux/blob/master/docs/advanced/UsageWithReactRouter.md
 
-href and Link
-html thumbnails
+install redux react-redux redux-thunk
+
+https://medium.freecodecamp.org/where-do-i-belong-a-guide-to-saving-react-component-data-in-state-store-static-and-this-c49b335e2a00
+
+https://redux.js.org/api/createstore
+
+https://github.com/reduxjs/redux/blob/master/docs/api/combineReducers.md
+https://redux.js.org/api/combinereducers
+
+https://github.com/reduxjs/redux/blob/master/docs/advanced/UsageWithReactRouter.md
+https://github.com/reduxjs/redux/tree/master/examples/todos/src
+
+https://www.youtube.com/watch?v=93p3LxR9xfM
+
+https://stackoverflow.com/questions/49560944/how-to-handle-error-in-redux-reducer
+https://stackoverflow.com/questions/36557089/how-to-listen-for-specific-property-changes-in-redux-store-after-an-action-is-di
+
+https://www.npmjs.com/package/keyword-extractor
+
+https://redux.js.org/basics/usagewithreact
+
+https://reacttraining.com/react-router/web/api/Switch
+
+https://redux.js.org/advanced/asyncactions
+
+https://github.com/reduxjs/redux-thunk/issues/146
+
+https://github.com/reduxjs/redux/blob/master/examples/async/src/containers/App.js
+
+https://github.com/zeit/next.js/issues/954
+https://github.com/sedubois/relate/blob/master/hocs/withAuth.js#L9
+
+https://github.com/reduxjs/redux/blob/master/examples/async/src/containers/App.js#L18

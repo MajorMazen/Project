@@ -1,67 +1,55 @@
 import React, { Component } from 'react';
-import SignUp from '../network/SignUp'
-import AuthService from '../network/AuthService'
+import { connect } from 'react-redux'
+import { register } from '../actions/authActions'
+import PropTypes from 'prop-types'
 
 class SignUpForm extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            error: false,
-            loginSucces: false
+            error: false
         }
-        this.updateVal = this.updateVal.bind(this)
-        this.submitForm = this.submitForm.bind(this)
-        this.SignUp = new SignUp();//instance of class SignUp
-        this.Auth = new AuthService(); //instance of class AuthService
     }
 
-    //update state as keys are entered
     updateVal = (e) => {
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ [e.target.name]: e.target.value });
     }
 
-    //form submission event handler
     submitForm = async (e) => {
         //prevent default bootstrap event handlers
         e.preventDefault();
+        await this.props.register(this.state.name, this.state.email, this.state.password);//await on page to display error messages
 
-        try {
-            const response = await this.SignUp.signup(this.state.name, this.state.email, this.state.password);
-            //set token
-            console.log(response);
-            this.Auth.setToken(response);
+    }
 
-            this.setState({
-                loginSucces: response.success
-            })
-            //re-route to home
+    componentWillReceiveProps(nextProps) { //happens when actions dispatched make changes to state tree
+        //transfer or use new props  
+        if (nextProps.error === false)
             this.props.history.push('/');
-        } catch (e) {
+        else
+            //triggering re-render with an error
             this.setState({
-                error: e.email
+                error: true
             })
-        }
     }
 
-    //add this componentWillMount method to prevent it staying on the signup page after already having signed up
-    componentDidMount() {
-        if (this.Auth.loggedIn()) {
-            this.props.history.push('/signup');
-        }
-    }
-
-    //render fn
     render() {
         return (
-            //<div> {this.state.error && <ErrorBox msg={this.state.error} />}</div> //variable parenthesis
+
             <div className="SignUpForm">
+
+                {this.state.error ? (
+                    <div className="alert alert-danger" role="alert">
+                        {this.props.errormsg}
+                    </div>) : null}
 
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-md-6">
                             <div className="card">
                                 <header className="card-header">
-                                    <a href="http://localhost:3000/login" className="float-right btn btn-outline-primary mt-1">Log in</a>
+                                    <a href="/login" className="float-right btn btn-outline-primary mt-1">Log in</a>
                                     <h4 className="card-title mt-2">Sign up</h4>
                                 </header>
                                 <article className="card-body">
@@ -86,7 +74,7 @@ class SignUpForm extends Component {
                                         <small className="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br /> Terms of use and Privacy Policy.</small>
                                     </form>
                                 </article>
-                                <div className="border-top card-body text-center">Have an account? <a href="http://localhost:3000/login">Log In</a></div>
+                                <div className="border-top card-body text-center">Have an account? <a href="/login">Log In</a></div>
                             </div>
                         </div>
 
@@ -100,7 +88,25 @@ class SignUpForm extends Component {
     }
 }
 
-export default SignUpForm;
+
+SignUpForm.propTypes = {
+    register: PropTypes.func.isRequired,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    error: PropTypes.bool,
+    errormsg: PropTypes.string
+};
+
+const mapStateToProps = (state) => ({
+    name: state.auth.name,
+    email: state.auth.email,
+    error: state.auth.error,
+    errormsg: state.auth.errormsg
+});
+
+export default connect(mapStateToProps, { register })(SignUpForm);
+
+
 
 
 

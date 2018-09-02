@@ -3,23 +3,26 @@ import decode from 'jwt-decode';
 import PostGet from './PostGet'
 
 export default class AuthService {
-    // Initializing and tying fns to global pointer scope
-    constructor(domain) {
-        this.domain = domain || 'http://localhost:5000' // API server domain
+    constructor() {
         this.PostGet = new PostGet();
     }
 
-    //token has to be set outside the scope of this fn
-    login = (email, password) => {
-        // Get a token from api server using the fetch api
-        const url = `${this.domain}/users/login`;
+    //token has to be set outside the scope of this fn, the promise is awaited and then set in authActions
+    login = (url, email, password) => {
+        // outputs a token promise from server api using the fetch method
         return this.PostGet.safeLogin(url, email, password)
+    }
+
+    //token added to server response for a signup ***
+    register = (url, name, email, password) => {
+        // outputs a token promise from server api using the fetch method
+        return this.PostGet.safeRegister(url, name, email, password)
     }
 
     loggedIn() {
         // Checks if there is a saved token and it's still valid
-        const token = this.getToken() // GEtting token from localstorage
-        return !!token || this.isTokenExpired(token) // handwaiving here
+        const token = this.getUserInfo().token // GEtting token from localstorage
+        return !!token && !this.isTokenExpired(token) // handwaiving here
     }
 
     isTokenExpired(token) {
@@ -36,16 +39,26 @@ export default class AuthService {
         }
     }
 
-    setToken = (response) => {
+
+    setUserInfo = (response) => {
         // Saves user token to localStorage
-        let idToken = response.token;
-        window.localStorage.setItem('id_token', idToken)
+        window.localStorage.setItem('id_token', response.token);
+        window.localStorage.setItem('user_name', response.name);
+        window.localStorage.setItem('user_email', response.email);
+        const decoded = decode(response.token);
+        window.localStorage.setItem('user_id', decoded.id);
     }
 
-    getToken() {
+    getUserInfo() {
         // Retrieves the user token from localStorage
-        return window.localStorage.getItem('id_token')
+        return {
+            token: window.localStorage.getItem('id_token'),
+            name: window.localStorage.getItem('user_name'),
+            email: window.localStorage.getItem('user_email'),
+            id: window.localStorage.getItem('user_id')
+        }
     }
+
 
     logout() {
         // Clear user token and profile data from localStorage
@@ -54,7 +67,7 @@ export default class AuthService {
 
     getProfile() {
         // Using jwt-decode npm package to decode the token
-        return decode(this.getToken());
+        return decode(this.getUserInfo().token);
     }
 
 
