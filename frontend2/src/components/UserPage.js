@@ -29,9 +29,10 @@ class UserPage extends Component {
             //get user name
             const username = await this.PostGet.safeGet(this.domain + "/name/" + this.props.match.params.id);//get user name     
             this.setState({
-                name_error: false, //name or myfollowing error
+                name_error: false,
                 username: username.name
             })
+            await this.props.getMyFollowing();
         }
         catch (e) {
             this.setState({
@@ -39,12 +40,6 @@ class UserPage extends Component {
                 name_errormsg: "Profile fetch error"
             })
         }
-
-        //get my following
-        try {
-            await this.props.getMyFollowing();
-        }
-        catch (e) { }
     }
 
     shouldComponentUpdate() {
@@ -71,16 +66,21 @@ class UserPage extends Component {
 
     //wrapper fn
     follow = async () => {
-        await this.props.followUser();
+        await this.props.followUser(this.props.match.params.id);
+        this.setState({
+            following: true
+        })
     }
     //wrapper fn
     unfollow = async () => {
-        await this.props.unfollowUser();
+        await this.props.unfollowUser(this.props.match.params.id);
+        this.setState({
+            following: false
+        })
     }
 
     render() {
-        //get user name first and pass to Name //needed if user types in the link to user profile instead of press on user name
-        //fix navbar
+        //needed if user types in the link to user profile instead of press on user name
         if (this.state.name_error) {
             return (
                 <div className="alert alert-danger" role="alert">
@@ -134,10 +134,24 @@ const NavBar = props => {
                 <a className="navbar-brand" href="">
                     <img src="./img/N_letter.jpg" width="5" height="5" className="d-inline-block align-top" alt="" />
                     {props.Name}</a>
-                <button className="btn btn-primary" type="submit" disabled={props.following} onClick={props.follow}>Follow User</button>
+                <FollowButton following={props.following} follow={props.follow} unfollow={props.unfollow} />
             </nav>
         </div>
     )
+}
+
+const FollowButton = props => {
+    if (props.following) {
+        return (
+            <button className="btn btn-primary" type="submit" onClick={props.unfollow}>Unfollow User</button>
+        )
+    }
+    else {
+        return (
+            <button className="btn btn-primary" type="submit" onClick={props.follow}>Follow User</button>
+        )
+    }
+
 }
 
 

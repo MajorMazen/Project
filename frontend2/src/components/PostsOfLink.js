@@ -22,7 +22,6 @@ class PostsOfLink extends Component {
             posts: [],
             id: dat.id
         }
-        console.log(this.state.id, "my id")
     }
 
     shouldComponentUpdate() {

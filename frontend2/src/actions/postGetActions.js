@@ -45,7 +45,7 @@ export const getMyPosts = () => (dispatch) => {
 //myposts will be 'spliced' in response to a post id deletion: server response isn't awaited (remove immediately from state while server executes api request)
 //should dispatch another fn
 export const delPost = (id) => (dispatch) => {
-    const delpostid = this.PostGet.safePost(domain + '/posts/delete/:' + id.toString());
+    const delpostid = this.PostGet.safePost(domain + '/posts/delete/' + id.toString());
 
     delpostid.then((delpostid) => {
         dispatch({
