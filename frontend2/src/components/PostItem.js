@@ -20,6 +20,9 @@ class PostItem extends Component {
             })
     }
 
+    delete = async () => {
+        await this.props.delPost(this.props.post._id); //what if i don't await
+    }
 
     render() {
         return (
@@ -33,7 +36,7 @@ class PostItem extends Component {
                 <h3><a href={this.props.post.linkurl} target="_blank"> {this.props.post.linktitle} </a></h3>
                 <p><a href={"/user/" + this.props.post.userid} > {this.props.post.username} </a></p>
                 <p>{this.props.post.date}</p>
-                <button disabled={!this.props.delete} onClick={this.props.delPost}> Delete </button>
+                <button disabled={!this.props.delete} onClick={this.delete}> Delete </button>
             </div>
         );
     }

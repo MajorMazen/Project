@@ -5,15 +5,15 @@ import PropTypes from 'prop-types'
 import PostsOfLink from './PostsOfLink';
 import { followUser, unfollowUser, getMyFollowing } from '../actions/followActions'
 import PostGet from '../network/PostGet'
+import AuthService from '../network/AuthService'
 
-
-//will ignore authentication check and just disable follow buttons, if myfollowing doen't exist
 class UserPage extends Component {
     constructor(props) {
         super(props);
 
+        this.AuthService = new AuthService();
         this.PostGet = new PostGet();
-        this.domain = 'http://localhost:5000/users';
+        this.domain = 'http://localhost:5000';
 
         this.state = {
             follow_error: false,
@@ -27,13 +27,16 @@ class UserPage extends Component {
     componentDidMount = async () => {
         try {
             //get user name
-            const username = await this.PostGet.safeGet(this.domain + "/name/" + this.props.match.params.id);//get user name     
+            const username = await this.PostGet.safeGet(this.domain + "/users/name/" + this.props.match.params.id);//get user name     
             this.setState({
                 name_error: false,
                 username: username.name
             })
-            await this.props.getMyFollowing();
+            if (this.AuthService.loggedIn()) {
+                await this.props.getMyFollowing();
+            }
         }
+
         catch (e) {
             this.setState({
                 name_error: true,
@@ -66,7 +69,7 @@ class UserPage extends Component {
 
     //wrapper fn
     follow = async () => {
-        await this.props.followUser(this.props.match.params.id);
+        await this.props.followUser(this.props.match.params.id);//what if i don't await
         this.setState({
             following: true
         })
@@ -148,7 +151,7 @@ const FollowButton = props => {
     }
     else {
         return (
-            <button className="btn btn-primary" type="submit" onClick={props.follow}>Follow User</button>
+            <button className="btn btn-primary" type="submit" onClick={props.follow} >Follow User</button>
         )
     }
 
