@@ -22,6 +22,7 @@ class PostsOfLink extends Component {
             posts: [],
             id: dat.id
         }
+        console.log(this.state.id, "my id")
     }
 
     shouldComponentUpdate() {
@@ -52,7 +53,7 @@ class PostsOfLink extends Component {
 
         if (this.state.posts.length > 0) {
             const postItems = this.state.posts.map(post => (
-                <PostItem post={post} key={post._id} delete={(post.userid !== this.state.id)} />
+                <PostItem post={post} key={post._id} delete={(post.userid === this.state.id)} />
             ));
 
             return (

@@ -26,14 +26,12 @@ class UserPage extends Component {
 
     componentDidMount = async () => {
         try {
-
-            const username = await this.PostGet.safeGet(this.domain + "/name/" + this.props.match.params.id);//get user name           
-
+            //get user name
+            const username = await this.PostGet.safeGet(this.domain + "/name/" + this.props.match.params.id);//get user name     
             this.setState({
                 name_error: false, //name or myfollowing error
                 username: username.name
             })
-            await this.props.getMyFollowing();
         }
         catch (e) {
             this.setState({
@@ -41,6 +39,12 @@ class UserPage extends Component {
                 name_errormsg: "Profile fetch error"
             })
         }
+
+        //get my following
+        try {
+            await this.props.getMyFollowing();
+        }
+        catch (e) { }
     }
 
     shouldComponentUpdate() {
@@ -54,7 +58,8 @@ class UserPage extends Component {
             this.setState({
                 follow_error: true
             })
-        if (nextProps.myfollowing !== this.props.myfollowing) {
+
+        if (nextProps.myfollowing) {
             const i = nextProps.myfollowing.indexOf(this.props.match.params.id); //what if myfollowing is empty
             const following = (i > -1);
 

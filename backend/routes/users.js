@@ -177,6 +177,18 @@ router.get("/myfollowing", passport.authenticate("jwt", { session: false }), (re
   })
 })
 
+router.get("/name/:id", (req, res) => {
+
+  User.findById(req.params.id, (err, user) => {
+    if (user) {
+      return res.status(200).json({ name: user.name });
+    }
+    else {
+      return res.status(400).json({ message: "User doesn't exist" });
+    }
+  })
+})
+
 //check if user is following another
 // router.get("/following/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
 
