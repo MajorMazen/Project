@@ -20,7 +20,15 @@ class UserPage extends Component {
             name_error: false,
             name_errormsg: "",
             username: "",
-            following: false
+            following: false,
+        }
+    }
+
+    componentWillMount = async () => {
+        //get following
+        this.auth = this.AuthService.loggedIn();
+        if (this.auth) {
+            await this.props.getMyFollowing();
         }
     }
 
@@ -30,11 +38,9 @@ class UserPage extends Component {
             const username = await this.PostGet.safeGet(this.domain + "/users/name/" + this.props.match.params.id);//get user name     
             this.setState({
                 name_error: false,
-                username: username.name
+                username: username.name,
             })
-            if (this.AuthService.loggedIn()) {
-                await this.props.getMyFollowing();
-            }
+
         }
 
         catch (e) {
@@ -58,7 +64,7 @@ class UserPage extends Component {
             })
 
         if (nextProps.myfollowing) {
-            const i = nextProps.myfollowing.indexOf(this.props.match.params.id); //what if myfollowing is empty
+            const i = nextProps.myfollowing.indexOf(this.props.match.params.id);
             const following = (i > -1);
 
             this.setState({
@@ -69,7 +75,7 @@ class UserPage extends Component {
 
     //wrapper fn
     follow = async () => {
-        await this.props.followUser(this.props.match.params.id);//what if i don't await
+        await this.props.followUser(this.props.match.params.id);
         this.setState({
             following: true
         })
@@ -101,7 +107,7 @@ class UserPage extends Component {
                             {this.props.errormsg}
                         </div>) : null}
 
-                    <NavBar Name={this.state.username} following={this.state.following} follow={this.follow} unfollow={this.unfollow} />
+                    <NavBar auth={this.auth} Name={this.state.username} following={this.state.following} follow={this.follow} unfollow={this.unfollow} />
                     <PostsOfLink url={this.props.match.url} />
                 </div>
             );
@@ -137,7 +143,7 @@ const NavBar = props => {
                 <a className="navbar-brand" href="">
                     <img src="./img/N_letter.jpg" width="5" height="5" className="d-inline-block align-top" alt="" />
                     {props.Name}</a>
-                <FollowButton following={props.following} follow={props.follow} unfollow={props.unfollow} />
+                <FollowButton auth={props.auth} following={props.following} follow={props.follow} unfollow={props.unfollow} />
             </nav>
         </div>
     )
@@ -151,7 +157,7 @@ const FollowButton = props => {
     }
     else {
         return (
-            <button className="btn btn-primary" type="submit" onClick={props.follow} >Follow User</button>
+            <button className="btn btn-primary" type="submit" onClick={props.follow} disabled={!props.auth} >Follow User</button>
         )
     }
 

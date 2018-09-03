@@ -21,7 +21,7 @@ class PostItem extends Component {
     }
 
     delete = async () => {
-        await this.props.delPost(this.props.post._id); //what if i don't await
+        await this.props.delPost(this.props.post._id);
     }
 
     render() {

@@ -14,7 +14,7 @@ class PostsOfLink extends Component {
         this.AuthService = new AuthService;
         this.PostGet = new PostGet();
         this.domain = 'http://localhost:5000/posts';
-        const dat = this.AuthService.getUserInfo(); //what if it returns null
+        const dat = this.AuthService.getUserInfo();
 
         this.state = {
             error: false,
