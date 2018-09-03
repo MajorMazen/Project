@@ -31,7 +31,7 @@ class PostItem extends Component {
                     </div>) : null}
 
                 <h3><a href={this.props.post.linkurl} target="_blank"> {this.props.post.linktitle} </a></h3>
-                <p><a href={"/user/:" + this.props.userid}> {this.props.post.username} </a></p>
+                <p><a href={"/user/" + this.props.post.userid}> {this.props.post.username} </a></p>
                 <p>{this.props.post.date}</p>
                 <button href="" disabled={!this.props.delete}> Delete </button>
             </div>

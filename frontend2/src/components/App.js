@@ -16,6 +16,7 @@ class App extends Component {
         this.AuthService = new AuthService();//initializing class
     }
 
+
     //conditional rendering here: can't wait for actions' dispatch or next props, render will have already happened
     //call prerequisite method AuthService.loggedIn() at render start
     //following a successful login/signup re-direct, {this.props.name} is populated from state tree, however on refresh, reload from local storage

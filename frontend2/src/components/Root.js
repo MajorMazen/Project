@@ -7,11 +7,9 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import SignUpForm from './SignUpForm';
 import SignInForm from './SignInForm';
-// import PostItem from '.GetPostItem';
 import UserPage from './UserPage';
-// import MyPage from './MyPage';
-//import TopicPage from './TopicPage'
-// import SearchResults from './SearchResults';
+//import PostsOfLink from './PostsOfLink'
+//import Search from './Search'
 import registerServiceWorker from '../registerServiceWorker';
 
 const Root = ({ store }) => (
@@ -24,9 +22,9 @@ const Root = ({ store }) => (
                 <Route exact path="/me" component={App} />
                 <Route exact path="/signup" component={SignUpForm} />
                 <Route exact path="/login" component={SignInForm} />
-                {/* <Route exact path="/topic/:id" component={TopicPage} /> */}
-                {/* <Route exact path="/post/:id" component={GetPostItem} />
-            <Route exact path="/search/:name" component={SearchResults} /> */}
+                {/* <Route exact path="/topic/:name" component={PostsOfLink} /> */}
+                {/* <Route exact path="/post/:id" component={PostsOfLink} />
+            <Route exact path="/search/:name" component={Search} /> */}
             </Switch>
         </Router>
     </Provider>
