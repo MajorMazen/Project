@@ -63,12 +63,14 @@ Posts.propTypes = {
     error: PropTypes.bool,
     errormsg: PropTypes.string,
     posts: PropTypes.array,
+    myfollowing: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({
     error: state.posts.error,
     errormsg: state.posts.errormsg,
     posts: state.posts.posts,
+    myfollowing: state.follow.myfollowing
 });
 
 export default connect(mapStateToProps, { getPosts })(Posts);

@@ -10,12 +10,12 @@ this.PostGet = new PostGet();
 //should dispatch another fn
 //the component is on a separate page and will mount anyways, so the data will be reloaded from server
 export const followUser = (id) => (dispatch) => {
-    const followedid = this.PostGet.safePost(domain + '/users/follow/' + id);
+    const myfollowing = this.PostGet.safePost(domain + '/users/follow/' + id);
 
-    followedid.then((followedid) => {
+    myfollowing.then((myfollowing) => {
         dispatch({
             type: FOLLOW_USER,
-            payload: followedid
+            payload: myfollowing
         })
     }).catch((e) => {
         dispatch({
@@ -27,12 +27,12 @@ export const followUser = (id) => (dispatch) => {
 
 //should dispatch another fn
 export const unfollowUser = (id) => (dispatch) => {
-    const unfollowedid = this.PostGet.safePost(domain + '/users/unfollow/' + id);
+    const myfollowing = this.PostGet.safePost(domain + '/users/unfollow/' + id);
 
-    unfollowedid.then((unfollowedid) => {
+    myfollowing.then((myfollowing) => {
         dispatch({
             type: UNFOLLOW_USER,
-            payload: unfollowedid
+            payload: myfollowing
         })
     }).catch((e) => {
         dispatch({

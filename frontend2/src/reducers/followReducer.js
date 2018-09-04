@@ -1,8 +1,6 @@
 import { FOLLOW_USER, UNFOLLOW_USER, GET_MY_FOLLOWING, ERROR } from '../actions/types';
 
 const initialState = {
-    followedid: null,
-    unfollowedid: null,
     myfollowing: [],
     error: false,
     errormsg: ""
@@ -13,16 +11,17 @@ export default function (state = initialState, action) {
         case FOLLOW_USER:
             return {
                 ...state,
-                followedid: action.payload.id,
+                myfollowing: action.payload,
                 error: false
             };
         case UNFOLLOW_USER:
             return {
                 ...state,
-                unfollowedid: action.payload.id,
+                myfollowing: action.payload,
                 error: false
             };
         case GET_MY_FOLLOWING:
+            console.log(action.payload, "getting followers")
             return {
                 ...state,
                 myfollowing: action.payload,

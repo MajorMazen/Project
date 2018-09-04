@@ -119,7 +119,7 @@ router.post("/follow/:id", passport.authenticate("jwt", { session: false }), (re
           //add to followers
           user.followers.push(follower);
           user.save().catch(e => { });
-          return res.status(200).json({ id: req.params.id });
+          return res.status(200).json(follower.following);
         });
       }
       else { return res.status(400).json({ message: "User already followed" }); }
@@ -149,7 +149,7 @@ router.post("/unfollow/:id", passport.authenticate("jwt", { session: false }), (
             toremove.followers.splice(a, 1);
             toremove.save().catch(e => { });
           }
-          return res.status(200).json({ id: req.params.id });
+          return res.status(200).json(user.following);
         });
       }
       // if (user) {
