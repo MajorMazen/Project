@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Switch } from 'react-router'
-import ReactDOM from 'react-dom';
 import App from './App';
 import SignUpForm from './SignUpForm';
 import SignInForm from './SignInForm';
 import UserPage from './UserPage';
 //import PostsOfLink from './PostsOfLink'
 //import Search from './Search'
-import registerServiceWorker from '../registerServiceWorker';
 
 const Root = ({ store }) => (
     //defining provider and passing in the variable store, which comes as as input to the function root (called in index.js)

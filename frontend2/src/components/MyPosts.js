@@ -25,7 +25,16 @@ class MyPosts extends Component {
             this.setState({
                 error: true
             })
+        if (nextProps.newpost !== this.props.newpost) {
+            this.props.myposts.unshift(nextProps.newpost);
+        }
 
+        if (nextProps.delpostid !== this.props.delpostid) {
+            let i = this.props.myposts.findIndex(post => post._id === nextProps.delpostid);
+            if (i > -1) {
+                this.props.myposts.splice(i, 1);
+            }
+        }
     }
 
 
@@ -63,12 +72,16 @@ MyPosts.propTypes = {
     error: PropTypes.bool,
     errormsg: PropTypes.string,
     myposts: PropTypes.array,
+    newpost: PropTypes.object,
+    delpostid: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
     error: state.posts.error,
     errormsg: state.posts.errormsg,
     myposts: state.posts.myposts,
+    newpost: state.posts.newpost,
+    delpostid: state.posts.delpostid
 });
 
 export default connect(mapStateToProps, { getMyPosts })(MyPosts);

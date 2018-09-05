@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { followUser, unfollowUser, getMyFollowing } from '../actions/followActions'
+import { getPosts } from '../actions/postGetActions';
 import PostGet from '../network/PostGet'
 import AuthService from '../network/AuthService'
-
 
 class UserNavBar extends Component {
     constructor(props) {
         super(props);
 
-        this.AuthService = new AuthService;
+        this.AuthService = new AuthService();
         this.PostGet = new PostGet();
         this.domain = 'http://localhost:5000';
 
@@ -36,7 +36,7 @@ class UserNavBar extends Component {
                 follow_error: true
             })
 
-        if (nextProps.myfollowing) {
+        if (nextProps.myfollowing !== this.props.myfollowing) {
             const i = nextProps.myfollowing.indexOf(this.props.id);
             const following = (i > -1);
 
@@ -44,8 +44,6 @@ class UserNavBar extends Component {
                 following: following
             })
 
-            console.log(nextProps.myfollowing, "next props")
-            console.log(this.props.myfollowing, "this props")
         }
     }
 
@@ -71,6 +69,7 @@ class UserNavBar extends Component {
 
                 <div className="Navigation">
                     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div><Link to="/">Back</Link></div>
                         <a className="navbar-brand" href="">
                             <img src="./img/N_letter.jpg" width="5" height="5" className="d-inline-block align-top" alt="" />
                             {this.props.Name}</a>
@@ -92,7 +91,8 @@ UserNavBar.propTypes = {
 
     followUser: PropTypes.func.isRequired,
     unfollowUser: PropTypes.func.isRequired,
-    getMyFollowing: PropTypes.func.isRequired
+    getMyFollowing: PropTypes.func.isRequired,
+    getPosts: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -101,7 +101,7 @@ const mapStateToProps = (state) => ({
     myfollowing: state.follow.myfollowing,
 });
 
-export default connect(mapStateToProps, { followUser, unfollowUser, getMyFollowing })(UserNavBar);
+export default connect(mapStateToProps, { followUser, unfollowUser, getMyFollowing, getPosts })(UserNavBar);
 
 
 //button component---------------------------

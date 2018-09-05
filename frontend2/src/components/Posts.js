@@ -25,9 +25,7 @@ class Posts extends Component {
             this.setState({
                 error: true
             })
-
     }
-
 
     render() {
 
@@ -70,7 +68,7 @@ const mapStateToProps = (state) => ({
     error: state.posts.error,
     errormsg: state.posts.errormsg,
     posts: state.posts.posts,
-    myfollowing: state.follow.myfollowing
+    myfollowing: state.follow.myfollowing,
 });
 
 export default connect(mapStateToProps, { getPosts })(Posts);

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PostItem from './PostItem'
 import PostGet from '../network/PostGet'
-import PropTypes from 'prop-types'
 import AuthService from '../network/AuthService'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 //Fetching posts - arbitrary url in the property
 //redux connection not needed
@@ -11,7 +12,7 @@ class PostsOfLink extends Component {
     constructor(props) {
         super(props);
 
-        this.AuthService = new AuthService;
+        this.AuthService = new AuthService();
         this.PostGet = new PostGet();
         this.domain = 'http://localhost:5000/posts';
         const dat = this.AuthService.getUserInfo();
@@ -47,6 +48,15 @@ class PostsOfLink extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps) { //happens when actions dispatched make changes to state tree
+
+        if (nextProps.delpostid !== this.props.delpostid) {
+            let i = this.state.posts.findIndex(post => post.id === nextProps.delpostid);
+            if (i > -1) {
+                this.state.posts.splice(i, 1);
+            }
+        }
+    }
 
     render() {
 
@@ -77,5 +87,16 @@ class PostsOfLink extends Component {
     }
 }
 
-export default PostsOfLink;
+
+PostsOfLink.propTypes = {
+    delpostid: PropTypes.string,
+};
+
+const mapStateToProps = (state) => ({
+    delpostid: state.posts.delpostid
+});
+
+export default connect(mapStateToProps)(PostsOfLink);
+
+
 

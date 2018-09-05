@@ -32,7 +32,7 @@ class App extends Component {
                     <div className="App">
                         <NavBar Name={this.props.name} logout={this.props.logout} />
                         <Posts />
-                        {/* <PostLinkForm /> */}
+                        <PostLinkForm />
                     </div>
                 );
             }
@@ -43,7 +43,7 @@ class App extends Component {
                     <div className="App">
                         <NavBar Name={this.props.name} logout={this.props.logout} />
                         <MyPosts />
-                        {/* <PostLinkForm /> */}
+                        <PostLinkForm />
                     </div>
                 );
             }

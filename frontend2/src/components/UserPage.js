@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
-// import { connect } from 'react-redux'
-// import PropTypes from 'prop-types'
 import PostsOfLink from './PostsOfLink';
 import PostGet from '../network/PostGet'
 import UserNavBar from './UserNavBar';

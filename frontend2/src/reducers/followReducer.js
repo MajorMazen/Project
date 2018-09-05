@@ -21,7 +21,6 @@ export default function (state = initialState, action) {
                 error: false
             };
         case GET_MY_FOLLOWING:
-            console.log(action.payload, "getting followers")
             return {
                 ...state,
                 myfollowing: action.payload,
