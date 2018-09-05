@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { followUser, unfollowUser, getMyFollowing } from '../actions/followActions'
@@ -60,18 +60,18 @@ class UserNavBar extends Component {
     render() {
 
         return (
-            <div className="UserNavBar">
+            <div className="UserNavBar ">
 
                 {this.state.follow_error ? (
                     <div className="alert alert-danger" role="alert">
                         {this.props.errormsg}
                     </div>) : null}
 
-                <div className="Navigation">
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <div><Link to="/">Back</Link></div>
+                <div className="Navigation ">
+                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between w-100">
+                        {/* <div><Link to="/">Back</Link></div> */}
                         <a className="navbar-brand" href="">
-                            <img src="./img/N_letter.jpg" width="5" height="5" className="d-inline-block align-top" alt="" />
+                            {/* <img src="./img/N_letter.jpg" width="5" height="5" className="d-inline-block align-top" alt="" /> */}
                             {this.props.Name}</a>
                         <FollowButton auth={this.auth} following={this.state.following} follow={this.follow} unfollow={this.unfollow} />
                     </nav>

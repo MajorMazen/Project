@@ -13,9 +13,8 @@ const LinksSchema = new Schema({
         type: Schema.Types.String, required: false
     },
 
-    topicid: {
-        type: Schema.Types.ObjectId, ref: "topics", required: false
-    }
+    linktopics: [{ type: Schema.Types.String, required: false, default: {} }],
+
 });
 
 //export it as an output

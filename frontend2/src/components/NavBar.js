@@ -7,7 +7,7 @@ class Navbar extends Component {
             <div className="Navigation">
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                     <a className="navbar-brand" href="/">
-                        <img src="./img/N_letter.jpg" width="5" height="5" className="d-inline-block align-top" alt="" />
+                        {/* <img src="./img/N_letter.jpg" width="5" height="5" className="d-inline-block align-top" alt="" /> */}
                         News Net</a>
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item active">

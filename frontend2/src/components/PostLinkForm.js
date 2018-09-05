@@ -41,11 +41,11 @@ class PostLinkForm extends Component {
 
                 <form onSubmit={this.submitForm}>
                     <div className="form-row align-items-center ">
-                        <div className="col-sm-10">
+                        <div className="col-sm-11">
                             <label className="sr-only" htmlFor="formUrlParam">URL</label>
                             <input type="url" className="form-control" name="urlParam" id="formUrlParam" placeholder="http://www.website.com" required={true} onChange={this.updateVal} />
                         </div>
-                        <div className="col-sm-2">
+                        <div className="col-sm-1">
                             <button type="submit" className="btn btn-primary btn-lg btn-submit">Post</button>
                         </div>
                     </div>

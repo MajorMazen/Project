@@ -37,13 +37,13 @@ mongoose
 
 //test API in postman on: http://localhost:5000/ to see hello json
 //app.get('/', (req, res) => res.json({ msg: "hello my name is" }));
-app.get('/about', (req, res) => res.send("Our company was founded in 2015"));
+//app.get('/about', (req, res) => res.send("Our company was founded in 2015"));
 app.use('/users', users);
 app.use('/posts', posts);
 
 
 app.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Post.find({ userid: req.user.following }, (err, posts) => {
+  Post.find({ userid: req.user.following }, null, { sort: { date: -1 } }, (err, posts) => {
     if (err) {
       return res.status(400).json({ message: "No posts to display" })
     }

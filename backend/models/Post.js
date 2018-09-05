@@ -21,9 +21,7 @@ const PostsSchema = new Schema({
         required: true
     },
 
-    topicid: {
-        type: Schema.Types.ObjectId, ref: "topics", required: false
-    },
+    linktopics: [{ type: Schema.Types.String, required: false, default: {} }],
 
     date: {
         type: Date,

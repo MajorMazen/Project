@@ -4,9 +4,9 @@ import PostGet from '../network/PostGet'
 import AuthService from '../network/AuthService'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 //Fetching posts - arbitrary url in the property
-//redux connection not needed
 class PostsOfLink extends Component {
 
     constructor(props) {
@@ -51,7 +51,7 @@ class PostsOfLink extends Component {
     componentWillReceiveProps(nextProps) { //happens when actions dispatched make changes to state tree
 
         if (nextProps.delpostid !== this.props.delpostid) {
-            let i = this.state.posts.findIndex(post => post.id === nextProps.delpostid);
+            let i = this.state.posts.findIndex(post => post._id === nextProps.delpostid);
             if (i > -1) {
                 this.state.posts.splice(i, 1);
             }
@@ -71,6 +71,13 @@ class PostsOfLink extends Component {
                         <div className="alert alert-danger" role="alert">
                             {this.state.errormsg}
                         </div>) : null}
+
+                    <div className="Navigation">
+                        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                            <div><Link to="/">Back</Link></div>
+                        </nav>
+                    </div>
+
                     {postItems}
                 </div>
             )

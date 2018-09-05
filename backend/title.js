@@ -1,17 +1,20 @@
 const axios = require("axios");
 const express = require('express');
-
+var keyword_extractor = require("keyword-extractor");
 
 const pagetitle = async (url, fn) => {
     try {
         const response = await axios.get(url); //promise have to be awaited
         const data = response.data;
 
-        var i1 = data.indexOf('title'); i1 += 6;
-        var i2 = data.indexOf('</title');
+        var i1 = data.lastIndexOf('<title'); i1 += 7;
+        var i2 = data.indexOf('</title>');
 
         if (i1 > -1 && i2 > -1) {
-            const title = data.substring(i1, i2);
+            let title = data.substring(i1, i2);
+            var i3 = title.indexOf(">");
+            if (i3 > -1) title = title.substring(i3 + 1, title.length);
+            if (title.length > 300) title = url;
             fn(title); //retrieved value through a callback fn
         }
         else {
@@ -24,10 +27,19 @@ const pagetitle = async (url, fn) => {
 };
 
 // let x = null;
-// pagetitle('https://www.indiatoday.in/amp/india/story/anil-ambani-asks-congress-to-shut-up-on-rafale-deal-1320238-2018-08-22?ref=taboola', (res) => {
+// pagetitle('https://www.bbc.com/news/world-us-canada-45403324', (res) => {
 //     if (res) {
 //         this.x = res;
 //         console.log(this.x);//can't be returned, assignment will execute before promise is resolved, only used in this scope
+
+//         var extraction_result = keyword_extractor.extract(this.x, {
+//             language: "english",
+//             remove_digits: true,
+//             return_changed_case: true,
+//             remove_duplicates: false
+
+//         });
+//         console.log(extraction_result)
 //     }
 //     else {
 //         console.log("Invalid URL")

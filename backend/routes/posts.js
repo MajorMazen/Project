@@ -85,7 +85,7 @@ router.get('/user/:id', (req, res) => {
 
     User.findById(req.params.id).then(user => {
         if (user) {
-            Post.find({ userid: user._id }).then(post => { return res.status(200).json(post) })
+            Post.find({ userid: user._id }, null, { sort: { date: -1 } }).then(post => { return res.status(200).json(post) })
                 .catch(err => { return res.status(400).json({ message: "Error retrieving posts" }); });
 
         } else {
@@ -96,7 +96,7 @@ router.get('/user/:id', (req, res) => {
 
 
 router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Post.find({ userid: req.user._id }).then(post => { return res.status(200).json(post) })
+    Post.find({ userid: req.user._id }, null, { sort: { date: -1 } }).then(post => { return res.status(200).json(post) })
         .catch(err => { return res.status(400).json({ message: "Error retrieving posts" }); });
 });
 
