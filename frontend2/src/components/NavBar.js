@@ -12,7 +12,7 @@ class Navbar extends Component {
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item ">
                             <a className="nav-link" href="/me" >
-                                {this.props.Name}</a>
+                                {this.props.Name + " Profile"}</a>
                         </li>
                         <li className="nav-item ">
                             <a className="nav-link" href="" onClick={this.props.logout}>

@@ -4,6 +4,7 @@ const initialState = {
     posts: [],
     myposts: [],
     newpost: {},
+    posting: false,
     delpostid: null,
     error: false,
     errormsg: ""
@@ -29,7 +30,8 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 newpost: action.payload,
-                error: false
+                error: false,
+                posting: false
             };
         case DEL_POST:
             return {

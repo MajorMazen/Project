@@ -34,10 +34,10 @@ class PostLinkForm extends Component {
         return (
             <div className="PostLinkForm bg-dark" style={divStyle}>
 
-                {this.state.newpost_error ? (
+                {/* {this.state.newpost_error ? (
                     <div className="alert alert-danger" role="alert">
                         {this.props.errormsg}
-                    </div>) : null}
+                    </div>) : null} */}
 
                 <form onSubmit={this.submitForm}>
                     <div className="form-row align-items-center ">
@@ -58,13 +58,13 @@ class PostLinkForm extends Component {
 
 PostLinkForm.propTypes = {
     newPost: PropTypes.func.isRequired,
-    error: PropTypes.bool,
-    errormsg: PropTypes.string,
+    // error: PropTypes.bool,
+    // errormsg: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
-    error: state.posts.error,
-    errormsg: state.posts.errormsg,
+    // error: state.posts.error,
+    // errormsg: state.posts.errormsg,
 });
 
 export default connect(mapStateToProps, { newPost })(PostLinkForm);

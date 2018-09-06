@@ -15,7 +15,7 @@ class Posts extends Component {
 
     //fetch data
     componentWillMount = async () => {
-        await this.props.getPosts(); //test using the fn in place of action
+        await this.props.getPosts();
     }
 
 
@@ -29,11 +29,13 @@ class Posts extends Component {
 
     render() {
 
+        //calling postitems component, delete enabled
         if (this.props.posts.length > 0) {
             const postItems = this.props.posts.map(post => (
                 <PostItem post={post} key={post._id} delete={false} />
             ));
 
+            //printing any errors and postitems
             return (
                 <div className="Posts">
                     {this.state.error ? (

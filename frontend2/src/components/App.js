@@ -25,8 +25,6 @@ class App extends Component {
             this.props.getUserInfo();
 
             //home page (binded to posts)
-            //avoiding if else over action type to retrieve kind of posts, which requires binding to both posts and myposts of both actions, 
-            //hence seeing unnecessary re-rendering to Posts Component where it shouldn't
             if (this.props.match.url === "/") {
                 return (
                     <div className="App">

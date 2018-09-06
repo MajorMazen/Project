@@ -12,7 +12,7 @@ class UserPage extends Component {
 
         this.state = {
             name_error: false,
-            name_errormsg: "",
+            name_errormsg: "",//error fetching user name
             username: "",
         }
     }
@@ -48,6 +48,7 @@ class UserPage extends Component {
             );
         }
 
+        //passing name and user id to usernavbar, passing router link to posts of link
         else {
             return (
                 <div className="UserPage">

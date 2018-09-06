@@ -119,7 +119,8 @@ router.get('/post/:id', (req, res) => {
 
 router.get('/topic/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
     Link.find({ linktopics: req.params.name }).then(links => {
-        Post.find({ linkid: links._id }).then(posts => { return res.status(200).json(posts) })
+        const linkids = links.map(link => (link._id))
+        Post.find({ linkid: linkids }).then(posts => { return res.status(200).json(posts) })
             .catch(err => { return res.status(400).json({ message: "Error retrieving posts" }); }) //post find catch
     }).catch(err => { return res.status(400).json({ message: "Error retrieving posts" }); })//link find catch
 })

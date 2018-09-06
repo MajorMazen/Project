@@ -6,7 +6,6 @@ const domain = 'http://localhost:5000'; //server domain
 //this calls in class PostGet (Generic class for making API requests)
 this.PostGet = new PostGet();
 
-//it might not be needed to dispatch the posts to memory
 //only needed if follow/unfollow is on same page, posts are 'unshifted' or 'spliced' in response, also myfollowing (re-render)
 export const getPosts = () => (dispatch) => {
     const posts = this.PostGet.safeGet(domain + '/');//home page, posts of ppl which the user is following
@@ -23,7 +22,6 @@ export const getPosts = () => (dispatch) => {
         })
     })
 }
-
 
 //myposts will be 'unshifted' in response to a new post action (server response awaited to capture new post id for href link to postItem component)
 export const getMyPosts = () => (dispatch) => {
@@ -43,7 +41,6 @@ export const getMyPosts = () => (dispatch) => {
 }
 
 //myposts will be 'spliced' in response to a post id deletion: server response isn't awaited (remove immediately from state while server executes api request)
-//should dispatch another fn
 export const delPost = (id) => (dispatch) => {
     const delpostid = this.PostGet.safePost(domain + '/posts/delete/' + id.toString());
 
@@ -60,7 +57,10 @@ export const delPost = (id) => (dispatch) => {
     })
 }
 
-//should dispatch another fn to add newpost to myposts: server response awaited to capture new post id for href link to postItem component
+// export const newPost = (link) => (dispatch) => {
+
+// }
+
 export const newPost = (link) => (dispatch) => {
     const newpost = this.PostGet.postItem(domain + '/posts/post', link);
 

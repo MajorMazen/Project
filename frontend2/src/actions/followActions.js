@@ -7,7 +7,6 @@ const domain = 'http://localhost:5000'; //server domain
 this.PostGet = new PostGet();
 
 //if follow/unfollow is on same page, posts are 'unshifted' or 'spliced' in response, also myfollowing (re-render)
-//should dispatch another fn
 //the component is on a separate page and will mount anyways, so the data will be reloaded from server
 export const followUser = (id) => (dispatch) => {
     const myfollowing = this.PostGet.safePost(domain + '/users/follow/' + id);
@@ -25,7 +24,6 @@ export const followUser = (id) => (dispatch) => {
     })
 }
 
-//should dispatch another fn
 export const unfollowUser = (id) => (dispatch) => {
     const myfollowing = this.PostGet.safePost(domain + '/users/unfollow/' + id);
 

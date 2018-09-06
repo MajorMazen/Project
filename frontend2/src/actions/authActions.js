@@ -8,7 +8,7 @@ this.AuthService = new AuthService();
 
 
 export const login = (email, password) => (dispatch) => {
-    const response = this.AuthService.login(domain + '/users/login', email, password);
+    const response = this.AuthService.login(domain + '/users/login', email, password);//promise resolution awaited before saving to the local storage
 
     //object returned in state tree has to be an object (resolved promise)
     //.then in place of fn awaits which implies an async wrapper fn and unresolved promise dispatches
@@ -28,10 +28,8 @@ export const login = (email, password) => (dispatch) => {
 }
 
 export const register = (name, email, password) => (dispatch) => {
-    const response = this.AuthService.register(domain + '/users/register', name, email, password);//promise resolution awaited before saving to the local storage
+    const response = this.AuthService.register(domain + '/users/register', name, email, password);
 
-    //object returned in state tree has to be an object (resolved promise)
-    //.then in place of fn awaits which implies an async wrapper fn and unresolved promise dispatches
     response.then((response) => {
         this.AuthService.setUserInfo(response); //set in local storage
         dispatch({
@@ -47,7 +45,6 @@ export const register = (name, email, password) => (dispatch) => {
 
 }
 
-//wanted before render! won't work
 export const isAuth = () => dispatch => {
     const isauth = this.AuthService.loggedIn();
     dispatch({
@@ -56,7 +53,7 @@ export const isAuth = () => dispatch => {
     })
 }
 
-//log out will remove yoken from local storage and update state
+//log out will remove token from local storage and update state
 export const logout = () => dispatch => {
     this.AuthService.logout();
     const isauth = false;
@@ -66,7 +63,6 @@ export const logout = () => dispatch => {
     })
 }
 
-//wanted before render! won't work
 export const getUserInfo = () => dispatch => {
     const info = this.AuthService.getUserInfo();
     dispatch({

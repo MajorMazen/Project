@@ -25,6 +25,8 @@ class MyPosts extends Component {
             this.setState({
                 error: true
             })
+
+        //actively adding or deleting myposts on actions call
         if (nextProps.newpost !== this.props.newpost) {
             this.props.myposts.unshift(nextProps.newpost);
         }
@@ -39,12 +41,13 @@ class MyPosts extends Component {
 
 
     render() {
-
+        //calling postitems component, delete enabled
         if (this.props.myposts.length > 0) {
             const postItems = this.props.myposts.map(mypost => (
                 <PostItem post={mypost} key={mypost._id} delete={true} />
             ));
 
+            //printing any errors and postitems
             return (
                 <div className="MyPosts">
                     {this.state.error ? (

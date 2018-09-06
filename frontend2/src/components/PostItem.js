@@ -5,20 +5,20 @@ import { connect } from 'react-redux'
 
 class PostItem extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: false,
-        }
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         error: false,
+    //     }
+    // }
 
-    componentWillReceiveProps(nextProps) { //happens when actions dispatched make changes to state tree
-        if (nextProps.error === true)
-            //triggering re-render with an error
-            this.setState({
-                error: true
-            })
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.error === true)
+    //         //triggering re-render with an error
+    //         this.setState({
+    //             error: true
+    //         })
+    // }
 
     delete = async () => {
         await this.props.delPost(this.props.post._id);
@@ -26,21 +26,22 @@ class PostItem extends Component {
 
     render() {
 
-        let linkTopics;
+        //adding post topics as links, href loads posts sharing same keyword
+        let linkTopics; const key = this.props.post._id; let counter = 0;
         if (this.props.post.linktopics.length > 0) {
             linkTopics = this.props.post.linktopics.map(topic => (
-                <a href={"/topic/" + topic} className="card-link"> {topic} </a>
+                <a href={"/topic/" + topic} className="card-link" key={key + "_" + counter++}> {topic} </a>
             ));
         }
         else linkTopics = null;
 
+        //rendering post card with delete 
         return (
             <div className="PostItem">
-
-                {this.state.error ? (
+                {/* {this.state.error ? (
                     <div className="alert alert-danger" role="alert">
                         {this.props.errormsg}
-                    </div>) : null}
+                    </div>) : null} */}
 
                 <div className="card w-100">
                     <div className="card-body row">
@@ -50,7 +51,7 @@ class PostItem extends Component {
                             <p className="card-subtitle text-muted">{this.props.post.date}</p>
                             {linkTopics}
                         </div>
-                        <div class="col-sm-1">
+                        <div className="col-sm-1">
                             <button className="btn btn-secondary" disabled={!this.props.delete} onClick={this.delete}> X </button>
                         </div>
                     </div>
@@ -62,13 +63,13 @@ class PostItem extends Component {
 
 PostItem.propTypes = {
     delPost: PropTypes.func.isRequired,
-    error: PropTypes.bool,
-    errormsg: PropTypes.string,
+    // error: PropTypes.bool,
+    //errormsg: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
-    error: state.posts.error,
-    errormsg: state.posts.errormsg,
+    //error: state.posts.error,
+    //errormsg: state.posts.errormsg,
 });
 
 export default connect(mapStateToProps, { delPost })(PostItem);

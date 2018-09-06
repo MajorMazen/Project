@@ -66,11 +66,13 @@ class PostsOfLink extends Component {
 
     render() {
 
+        //calling postitems component, delete depends
         if (this.state.posts.length > 0) {
             const postItems = this.state.posts.map(post => (
                 <PostItem post={post} key={post._id} delete={(post.userid === this.state.id)} />
             ));
 
+            //printing any errors and postitems
             return (
                 <div className="PostsOfLink">
                     {this.state.error ? (
@@ -80,7 +82,7 @@ class PostsOfLink extends Component {
 
                     <div className="Navigation">
                         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                            <div><Link to="/">Back</Link></div>
+                            <div><Link to="/">Back to Home</Link></div>
                         </nav>
                     </div>
 
@@ -102,7 +104,7 @@ class PostsOfLink extends Component {
 
 
 PostsOfLink.propTypes = {
-    delpostid: PropTypes.string,
+    delpostid: PropTypes.string,//senses deletion actions
 };
 
 const mapStateToProps = (state) => ({
