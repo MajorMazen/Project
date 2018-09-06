@@ -108,14 +108,10 @@ router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) =
 
 
 router.get('/post/:id', (req, res) => {
-    Post.findById({ _id: req.params.id }).then(post => { return res.status(200).json(post) })
+    Post.find({ _id: req.params.id }).then(post => { return res.status(200).json(post) })
         .catch(err => { return res.status(400).json({ message: "Error retrieving post" }); });
 });
 
-// router.get('/recent', passport.authenticate('jwt', { session: false }), (req, res) => {
-//     Post.find({ userid: req.user._id }, null, { sort: { date: -1 } }).then(post => { return res.status(200).json(post) })
-//         .catch(err => { return res.status(400).json({ message: "Error retrieving posts" }); });
-// });
 
 router.get('/topic/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
     Link.find({ linktopics: req.params.name }).then(links => {
@@ -124,6 +120,18 @@ router.get('/topic/:name', passport.authenticate('jwt', { session: false }), (re
             .catch(err => { return res.status(400).json({ message: "Error retrieving posts" }); }) //post find catch
     }).catch(err => { return res.status(400).json({ message: "Error retrieving posts" }); })//link find catch
 })
+
+// router.get('/recent', passport.authenticate('jwt', { session: false }), (req, res) => {
+//     Post.find({ userid: req.user._id }, null, { sort: { date: -1 } }).then(post => { return res.status(200).json(post) })
+//         .catch(err => { return res.status(400).json({ message: "Error retrieving posts" }); });
+// });
+
+
+
+
+
+
+
 
 // router.post('/title', (req, res) => {
 //     if (req.body.linkurl) {

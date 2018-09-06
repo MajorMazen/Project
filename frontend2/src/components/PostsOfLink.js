@@ -43,7 +43,6 @@ class PostsOfLink extends Component {
                 error: false,
                 posts: data
             })
-            console.log("the data", data)
         }
         catch (e) {
             this.setState({
