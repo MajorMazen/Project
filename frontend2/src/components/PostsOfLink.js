@@ -39,11 +39,11 @@ class PostsOfLink extends Component {
     componentDidMount = async () => {
         try {
             const data = await this.PostGet.safeGet(this.domain + this.state.url);//like /topic/ or /user/
-
             this.setState({
                 error: false,
                 posts: data
             })
+            console.log("the data", data)
         }
         catch (e) {
             this.setState({

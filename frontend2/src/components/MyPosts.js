@@ -69,7 +69,9 @@ class MyPosts extends Component {
 
                     {this.state.posting ? (
                         <div>
-                            Posting .....
+                            <div className="alert alert-info">
+                                <strong>Posting Link ...</strong>
+                            </div>
                         </div>) : null}
 
                     {postItems}

@@ -37,13 +37,13 @@ class PostItem extends Component {
 
         //rendering post card with delete 
         return (
-            <div className="PostItem">
+            <div className="PostItem" >
                 {/* {this.state.error ? (
                     <div className="alert alert-danger" role="alert">
                         {this.props.errormsg}
                     </div>) : null} */}
 
-                <div className="card w-100">
+                <div className="card w-100" >
                     <div className="card-body row">
                         <h5 className="card-title col-sm-2"><a href={"/user/" + this.props.post.userid} > {this.props.post.username} </a></h5>
                         <div className="col-sm-9">
@@ -53,6 +53,8 @@ class PostItem extends Component {
                         </div>
                         <div className="col-sm-1">
                             <button className="btn btn-secondary" disabled={!this.props.delete} onClick={this.delete}> X </button>
+                            <br /><br /><br />
+                            <a href={"/post/" + this.props.post._id}>View</a>
                         </div>
                     </div>
                 </div>

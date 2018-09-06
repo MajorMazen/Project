@@ -21,8 +21,8 @@ const Root = ({ store }) => (
                 <Route exact path="/signup" component={SignUpForm} />
                 <Route exact path="/login" component={SignInForm} />
                 <Route exact path="/topic/:name" component={PostsOfLink} />
-                {/* <Route exact path="/post/:id" component={PostsOfLink} />
-            <Route exact path="/search/:name" component={Search} /> */}
+                <Route exact path="/post/:id" component={PostsOfLink} />
+                {/* <Route exact path="/search/:name" component={Search} /> */}
             </Switch>
         </Router>
     </Provider>
