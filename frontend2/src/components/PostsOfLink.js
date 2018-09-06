@@ -17,11 +17,17 @@ class PostsOfLink extends Component {
         this.domain = 'http://localhost:5000/posts';
         const dat = this.AuthService.getUserInfo();
 
+        //set to router link if no props are passed through another component
+        let url;
+        if (!this.props.url) { url = this.props.match.url; }
+        else url = this.props.url;
+
         this.state = {
             error: false,
             errormsg: "",
             posts: [],
-            id: dat.id
+            id: dat.id,
+            url: url
         }
     }
 
@@ -32,7 +38,7 @@ class PostsOfLink extends Component {
     //fetch data
     componentDidMount = async () => {
         try {
-            const data = await this.PostGet.safeGet(this.domain + this.props.url);//like /topic/ or /user/
+            const data = await this.PostGet.safeGet(this.domain + this.state.url);//like /topic/ or /user/
 
             this.setState({
                 error: false,

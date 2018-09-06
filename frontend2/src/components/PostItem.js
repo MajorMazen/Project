@@ -25,6 +25,15 @@ class PostItem extends Component {
     }
 
     render() {
+
+        let linkTopics;
+        if (this.props.post.linktopics.length > 0) {
+            linkTopics = this.props.post.linktopics.map(topic => (
+                <a href={"/topic/" + topic} className="card-link"> {topic} </a>
+            ));
+        }
+        else linkTopics = null;
+
         return (
             <div className="PostItem">
 
@@ -33,14 +42,13 @@ class PostItem extends Component {
                         {this.props.errormsg}
                     </div>) : null}
 
-                <div class="card w-100">
-                    <div class="card-body row">
-                        <h5 class="card-title col-sm-2"><a href={"/user/" + this.props.post.userid} > {this.props.post.username} </a></h5>
-                        <div class="col-sm-9">
-                            <h4 class="card-text"><a href={this.props.post.linkurl} target="_blank"> {this.props.post.linktitle} </a></h4>
-                            <p class="card-subtitle text-muted">{this.props.post.date}</p>
-                            <a href="" class="card-link">Card link</a>
-                            <a href="" class="card-link">Another link</a>
+                <div className="card w-100">
+                    <div className="card-body row">
+                        <h5 className="card-title col-sm-2"><a href={"/user/" + this.props.post.userid} > {this.props.post.username} </a></h5>
+                        <div className="col-sm-9">
+                            <h4 className="card-text"><a href={this.props.post.linkurl} target="_blank"> {this.props.post.linktitle} </a></h4>
+                            <p className="card-subtitle text-muted">{this.props.post.date}</p>
+                            {linkTopics}
                         </div>
                         <div class="col-sm-1">
                             <button className="btn btn-secondary" disabled={!this.props.delete} onClick={this.delete}> X </button>

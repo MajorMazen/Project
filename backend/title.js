@@ -14,15 +14,26 @@ const pagetitle = async (url, fn) => {
             let title = data.substring(i1, i2);
             var i3 = title.indexOf(">");
             if (i3 > -1) title = title.substring(i3 + 1, title.length);
+
+            let keywords = null;
             if (title.length > 300) title = url;
-            fn(title); //retrieved value through a callback fn
+            else {
+                keywords = keyword_extractor.extract(title, {
+                    language: "english",
+                    remove_digits: true,
+                    return_changed_case: true,
+                    remove_duplicates: false
+
+                });
+            }
+            fn(title, keywords); //retrieved value through a callback fn
         }
         else {
-            fn(url);//title tags not located
+            fn(url, null);//title tags not located
         }
 
     } catch (error) {
-        fn(null); //page not found
+        fn(null, null); //page not found
     }
 };
 

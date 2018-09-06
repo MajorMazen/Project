@@ -12,6 +12,10 @@ const PostsSchema = new Schema({
         type: Schema.Types.ObjectId, ref: "users", required: true
     },
 
+    linkid: {
+        type: Schema.Types.ObjectId, ref: "links", required: true
+    },
+
     linktitle: {
         type: Schema.Types.String, required: false
     },

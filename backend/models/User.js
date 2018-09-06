@@ -26,7 +26,6 @@ const UserSchema = new Schema({
     default: Date.now()
   },
   following: [{ type: Schema.Types.ObjectId, ref: "users", required: false, default: {} }],
-  // followingtopics: [{ type: Schema.Types.ObjectId, ref: "topics", required: false, default: {} }]
   followers: [{ type: Schema.Types.ObjectId, ref: "users", required: false, default: {} }],
 });
 

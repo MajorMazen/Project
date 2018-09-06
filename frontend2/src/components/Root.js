@@ -7,7 +7,7 @@ import App from './App';
 import SignUpForm from './SignUpForm';
 import SignInForm from './SignInForm';
 import UserPage from './UserPage';
-//import PostsOfLink from './PostsOfLink'
+import PostsOfLink from './PostsOfLink'
 //import Search from './Search'
 
 const Root = ({ store }) => (
@@ -20,7 +20,7 @@ const Root = ({ store }) => (
                 <Route exact path="/me" component={App} />
                 <Route exact path="/signup" component={SignUpForm} />
                 <Route exact path="/login" component={SignInForm} />
-                {/* <Route exact path="/topic/:name" component={PostsOfLink} /> */}
+                <Route exact path="/topic/:name" component={PostsOfLink} />
                 {/* <Route exact path="/post/:id" component={PostsOfLink} />
             <Route exact path="/search/:name" component={Search} /> */}
             </Switch>
