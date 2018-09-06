@@ -1,5 +1,5 @@
 import PostGet from '../network/PostGet';
-import { GET_POSTS, GET_MY_POSTS, DEL_POST, NEW_POST, ERROR } from './types';
+import { GET_POSTS, GET_MY_POSTS, DEL_POST, NEW_POST, ERROR, POSTING } from './types';
 
 const domain = 'http://localhost:5000'; //server domain
 
@@ -57,11 +57,14 @@ export const delPost = (id) => (dispatch) => {
     })
 }
 
-// export const newPost = (link) => (dispatch) => {
-
-// }
-
 export const newPost = (link) => (dispatch) => {
+    //dipatching another action
+    dispatch({
+        type: POSTING,
+        payload: true
+    })
+
+    //fetching data
     const newpost = this.PostGet.postItem(domain + '/posts/post', link);
 
     newpost.then((newpost) => {

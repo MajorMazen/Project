@@ -9,7 +9,8 @@ class MyPosts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: false
+            error: false,
+            posting: false
         }
     }
 
@@ -37,6 +38,17 @@ class MyPosts extends Component {
                 this.props.myposts.splice(i, 1);
             }
         }
+
+        if (nextProps.posting === true) {
+            this.setState({
+                posting: true
+            })
+        }
+        else if (nextProps.posting === false) {
+            this.setState({
+                posting: false
+            })
+        }
     }
 
 
@@ -54,6 +66,12 @@ class MyPosts extends Component {
                         <div className="alert alert-danger" role="alert">
                             {this.props.errormsg}
                         </div>) : null}
+
+                    {this.state.posting ? (
+                        <div>
+                            Posting .....
+                        </div>) : null}
+
                     {postItems}
                 </div>
             )
@@ -77,6 +95,7 @@ MyPosts.propTypes = {
     myposts: PropTypes.array,
     newpost: PropTypes.object,
     delpostid: PropTypes.string,
+    posting: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
@@ -84,7 +103,8 @@ const mapStateToProps = (state) => ({
     errormsg: state.posts.errormsg,
     myposts: state.posts.myposts,
     newpost: state.posts.newpost,
-    delpostid: state.posts.delpostid
+    delpostid: state.posts.delpostid,
+    posting: state.posts.posting
 });
 
 export default connect(mapStateToProps, { getMyPosts })(MyPosts);
