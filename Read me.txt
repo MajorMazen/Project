@@ -1,0 +1,9 @@
+You can:
+1- Login/Sign Up 
+2- Search users & view recent posts
+3- Follow users 
+4- Share new links & share posts
+5- Have automatic tagging to your posts
+5- View posts by all users related to a certain topic
+
+(All users have an @yahoo.com email, and a password that matches their username)

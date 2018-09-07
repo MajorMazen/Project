@@ -35,7 +35,7 @@ class Navbar extends Component {
                             </li>
                             <li className={"nav-item " + this.props.active[1]}>
                                 <a className="nav-link" href="/me" >
-                                    My Profile </a>
+                                    {this.props.Name + "'s Profile"} </a>
                             </li>
                             <li className="nav-item ">
                                 <a className="nav-link" href="/followers">
@@ -46,13 +46,17 @@ class Navbar extends Component {
                                     Following</a>
                             </li>
                             <li className="nav-item ">
+                                <a className="nav-link" href="/recent">
+                                    Recent Posts</a>
+                            </li>
+                            <li className="nav-item ">
                                 <a className="nav-link" href="" onClick={this.props.logout}>
                                     Log Out</a>
                             </li>
                         </ul>
 
                         <form className="form-inline" onSubmit={this.search}>
-                            <input className="form-control" type="search" name="search" placeholder="Search Users" aria-label="Search" onChange={this.updateVal} />
+                            <input className="form-control" type="search" name="search" placeholder="Find Users" aria-label="Search" onChange={this.updateVal} />
                             <button className="btn btn-primary" type="submit" >Search</button>
                         </form>
                     </div>
