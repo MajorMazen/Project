@@ -76,6 +76,13 @@ class Posts extends Component {
                 </div>
             )
         }
+        else if (this.state.posting) {
+            return (<div>
+                <div className="alert alert-info">
+                    <strong>Posting on your profile ...</strong>
+                </div>
+            </div>)
+        }
         else if (this.state.done) {
             return (<div className="Posts">You aren't following anyone yet! Explore latest posts <a href="/recent"> Here </a></div>)
         }

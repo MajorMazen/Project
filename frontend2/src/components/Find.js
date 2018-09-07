@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PostGet from '../network/PostGet'
 import { Link } from 'react-router-dom'
+import userimg from '../img/user.jpg'
 
 
 class Find extends Component {
@@ -56,7 +57,9 @@ class Find extends Component {
         if (this.state.users.length > 0) {
             const users = this.state.users.map(user => (
                 <div key={user._id} >
-                    <a href={"/user/" + user._id} > {user.name} </a>
+                    <a href={"/user/" + user._id} >
+                        <div style={{ fontSize: "30px" }}>
+                            <img src={userimg} alt="user" style={{ width: "60px", height: "60px" }} /> {user.name} </div></a>
                     <br />
                 </div>
             ));
