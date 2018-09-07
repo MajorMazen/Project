@@ -80,8 +80,8 @@ class MyPosts extends Component {
 
                     {this.state.posting ? (
                         <div>
-                            <div className="alert alert-info">
-                                <strong>Posting Link ...</strong>
+                            <div className="alert alert-info" style={{ fontSize: "20px" }}>
+                                <strong>Posting link ...</strong>
                             </div>
                         </div>) : null}
 
@@ -91,7 +91,7 @@ class MyPosts extends Component {
         }
 
         else if (this.state.done) {
-            return (<div className="Posts">You have't shared anything yet! Explore latest posts <a href="/recent"> Here </a></div>)
+            return (<div className="Posts" style={{ fontSize: "20px" }}>You haven't shared anything yet! Explore latest posts <a href="/recent"> Here </a></div>)
         }
 
         else {

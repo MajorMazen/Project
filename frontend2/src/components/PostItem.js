@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { delPost } from '../actions/postGetActions'
+import { delPost, newPost } from '../actions/postGetActions'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import user from '../img/user.jpg'
@@ -8,6 +8,11 @@ class PostItem extends Component {
 
     delete = async () => {
         await this.props.delPost(this.props.post._id);
+    }
+
+    share = async () => {
+        await this.props.newPost(this.props.post.linkurl);
+
     }
 
     render() {
@@ -37,9 +42,11 @@ class PostItem extends Component {
                             {linkTopics}
                         </div>
                         <div className="col-sm-1">
-                            <button className="btn btn-secondary" disabled={!this.props.delete} onClick={this.delete}> X </button>
-                            <br /><br /><br />
+                            <button className="btn btn-danger" disabled={!this.props.delete} onClick={this.delete}> X </button>
+                            <br /> <br />
                             <a href={"/post/" + this.props.post._id}>View</a>
+                            <br /> <br />
+                            <button className="btn btn-secondary" onClick={this.share}>Share</button>
                         </div>
                     </div>
                 </div>
@@ -50,13 +57,14 @@ class PostItem extends Component {
 
 PostItem.propTypes = {
     delPost: PropTypes.func.isRequired,
+    newPost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 
 });
 
-export default connect(mapStateToProps, { delPost })(PostItem);
+export default connect(mapStateToProps, { delPost, newPost })(PostItem);
 
 
 

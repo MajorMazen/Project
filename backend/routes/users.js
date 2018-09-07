@@ -111,13 +111,16 @@ router.get("/follow/:id", passport.authenticate("jwt", { session: false }), (req
 
     // console.log(req.user.findById);
     User.findById(req.user._id, (err, follower) => {
-      let a = follower.following.indexOf(tofollowId);
-      if (a == -1) {
-        follower.following.push(user);
+      if (err) {
+        return res.status(400).json({ message: "User does not exist" });
+      }
+      const a = follower.following.indexOf(tofollowId);
+      if (a === -1) {
+        follower.following.push(user._id);
         follower.save().then(() => {
 
           //add to followers
-          user.followers.push(follower);
+          user.followers.push(follower._id);
           user.save().catch(e => { });
           return res.status(200).json(follower.following);
         });
@@ -139,14 +142,17 @@ router.get("/unfollow/:id", passport.authenticate("jwt", { session: false }), (r
     // console.log(req.user.findById);
     //add initial check for existing id before pushing
     User.findById(req.user._id, (err, user) => {
-      let a = user.following.indexOf(req.params.id);
+      if (err) {
+        return res.status(400).json({ message: "User does not exist" });
+      }
+      const a = user.following.indexOf(req.params.id);
       if (a > -1) {
         user.following.splice(a, 1);
         user.save().then(() => {
           //remove from followers
-          a = toremove.followers.indexOf(req.user._id);
-          if (a > -1) {
-            toremove.followers.splice(a, 1);
+          const b = toremove.followers.indexOf(req.user._id);
+          if (b > -1) {
+            toremove.followers.splice(b, 1);
             toremove.save().catch(e => { });
           }
           return res.status(200).json(user.following);

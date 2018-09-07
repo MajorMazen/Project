@@ -35,7 +35,7 @@ class Navbar extends Component {
                             </li>
                             <li className={"nav-item " + this.props.active[1]}>
                                 <a className="nav-link" href="/me" >
-                                    My Profile</a>
+                                    My Profile </a>
                             </li>
                             <li className="nav-item ">
                                 <a className="nav-link" href="/followers">

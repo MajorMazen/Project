@@ -4,29 +4,15 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 class PostLinkForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            newpost_error: false
-        }
-    }
+
     updateVal = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
 
     submitForm = async (e) => {
         e.preventDefault();
-        try {
-            await this.props.newPost(this.state.urlParam);
-            this.setState({
-                newpost_error: false,
-            })
-        }
-        catch (e) {
-            this.setState({
-                newpost_error: true,
-            })
-        }
+        await this.props.newPost(this.state.urlParam);
+
     }
 
     //--------------------------------------------------------------------------------------------------

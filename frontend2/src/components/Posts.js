@@ -67,7 +67,7 @@ class Posts extends Component {
 
                     {this.state.posting ? (
                         <div>
-                            <div className="alert alert-info">
+                            <div className="alert alert-info" style={{ fontSize: "20px" }}>
                                 <strong>Posting on your profile ...</strong>
                             </div>
                         </div>) : null}
@@ -78,13 +78,13 @@ class Posts extends Component {
         }
         else if (this.state.posting) {
             return (<div>
-                <div className="alert alert-info">
+                <div className="alert alert-info" style={{ fontSize: "20px" }}>
                     <strong>Posting on your profile ...</strong>
                 </div>
             </div>)
         }
         else if (this.state.done) {
-            return (<div className="Posts">You aren't following anyone yet! Explore latest posts <a href="/recent"> Here </a></div>)
+            return (<div className="Posts" style={{ fontSize: "20px" }}>You have no posts shared by friends yet! Explore latest posts <a href="/recent"> Here </a></div>)
         }
 
         else {

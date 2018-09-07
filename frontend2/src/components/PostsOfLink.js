@@ -28,7 +28,8 @@ class PostsOfLink extends Component {
             errormsg: "",
             id: dat.id,
             url: url,
-            done: false
+            done: false,
+            posting: false
         }
     }
 
@@ -55,6 +56,13 @@ class PostsOfLink extends Component {
     }
 
     componentWillReceiveProps(nextProps) { //happens when actions dispatched make changes to state tree
+        //no pushing to new posts in data (csn be user page not topic page)
+        if (nextProps.error === true)
+            //triggering re-render with an error
+            this.setState({
+                error: true,
+                done: true
+            })
 
         if (nextProps.delpostid !== this.props.delpostid) {
             let i = this.props.data.findIndex(post => post._id === nextProps.delpostid);
@@ -67,6 +75,17 @@ class PostsOfLink extends Component {
             this.setState({
                 done: true
             })
+
+        if (nextProps.posting === true) {
+            this.setState({
+                posting: true
+            })
+        }
+        else if (nextProps.posting === false) {
+            this.setState({
+                posting: false
+            })
+        }
     }
 
     render() {
@@ -87,9 +106,16 @@ class PostsOfLink extends Component {
 
                     <div className="Navigation">
                         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                            <div><Link to="/home"> Back to My Home</Link></div>
+                            <div><Link to="/home"> Back to My App</Link></div>
                         </nav>
                     </div>
+
+                    {this.state.posting ? (
+                        <div>
+                            <div className="alert alert-info" style={{ fontSize: "20px" }}>
+                                <strong>Posting link. Refresh to view ...</strong>
+                            </div>
+                        </div>) : null}
 
                     {postItems}
                 </div>
@@ -97,7 +123,11 @@ class PostsOfLink extends Component {
         }
 
         else if (this.state.done) {
-            return (<div className="PostsOfLink">Nothing to display</div>)
+            return (<div className="PostsOfLink">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div><Link to="/home"> Back to My App</Link></div>
+                </nav>
+                <div style={{ fontSize: "20px" }}> Nothing to display</div></div>)
         }
 
         else {
@@ -118,11 +148,19 @@ PostsOfLink.propTypes = {
     delpostid: PropTypes.string,//senses deletion actions
     get: PropTypes.func.isRequired,
     data: PropTypes.array,
+    error: PropTypes.bool,
+    errormsg: PropTypes.string,
+    newpost: PropTypes.object,
+    posting: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
     delpostid: state.posts.delpostid,
-    data: state.posts.data
+    data: state.posts.data,
+    error: state.posts.error,
+    errormsg: state.posts.errormsg,
+    newpost: state.posts.newpost,
+    posting: state.posts.posting,
 });
 
 export default connect(mapStateToProps, { get })(PostsOfLink);

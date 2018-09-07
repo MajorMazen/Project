@@ -84,7 +84,7 @@ class Find extends Component {
 
         else if (this.state.done) {
             return (
-                <div className="Find">
+                <div className="Find" style={{ fontSize: "20px" }}>
                     <div className="Navigation">
                         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                             <div><Link to="/home">Back to Home</Link></div>
