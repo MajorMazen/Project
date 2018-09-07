@@ -1,0 +1,39 @@
+
+html {
+    position: relative;
+    min-height: 100%;
+  }
+  
+  body {
+    margin-bottom: 120px; /* Margin bottom by footer height */
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 20px;
+  }
+  
+  #intro {
+    padding-top: 80px;
+  }
+  #why {
+    padding-top: 80px;
+  }
+   
+ 
+  .slider-image {
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    height: 500px;
+  }
+    
+  .text {
+        font-size: 30px !important;
+    font-weight: bold;
+    
+  }
+  

@@ -25,7 +25,7 @@ class App extends Component {
             this.props.getUserInfo();
 
             //home page (binded to posts)
-            if (this.props.match.url === "/") {
+            if (this.props.match.url === "/home") {
                 return (
                     <div className="App">
                         <NavBar Name={this.props.name} logout={this.props.logout} active={["active", "", ""]} />

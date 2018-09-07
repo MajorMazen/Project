@@ -28,7 +28,7 @@ class SignInForm extends Component {
     componentWillReceiveProps(nextProps) { //happens when actions dispatched make changes to state tree
         //transfer or use new props  
         if (nextProps.error === false)
-            this.props.history.push('/');
+            this.props.history.push('/home');
 
         else
             //triggering re-render with an error

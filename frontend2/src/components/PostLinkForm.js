@@ -34,16 +34,11 @@ class PostLinkForm extends Component {
         return (
             <div className="PostLinkForm bg-dark" style={divStyle}>
 
-                {/* {this.state.newpost_error ? (
-                    <div className="alert alert-danger" role="alert">
-                        {this.props.errormsg}
-                    </div>) : null} */}
-
                 <form onSubmit={this.submitForm}>
                     <div className="form-row align-items-center ">
                         <div className="col-sm-11">
                             <label className="sr-only" htmlFor="formUrlParam">URL</label>
-                            <input type="url" className="form-control" name="urlParam" id="formUrlParam" placeholder="http://www.website.com" required={true} onChange={this.updateVal} />
+                            <input type="url" className="form-control" name="urlParam" id="formUrlParam" placeholder="http://www.website.com" defaultValue="" required={true} onChange={this.updateVal} />
                         </div>
                         <div className="col-sm-1">
                             <button type="submit" className="btn btn-primary btn-lg btn-submit">Post</button>
@@ -58,13 +53,10 @@ class PostLinkForm extends Component {
 
 PostLinkForm.propTypes = {
     newPost: PropTypes.func.isRequired,
-    // error: PropTypes.bool,
-    // errormsg: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
-    // error: state.posts.error,
-    // errormsg: state.posts.errormsg,
+
 });
 
 export default connect(mapStateToProps, { newPost })(PostLinkForm);

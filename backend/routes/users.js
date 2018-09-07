@@ -97,7 +97,7 @@ router.post('/login', (req, res) => {
 });
 
 //follow 
-router.post("/follow/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
+router.get("/follow/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
 
   if (req.params.id === req.user._id) {
     return res.status(400).json({ message: "Restricted" });
@@ -129,7 +129,7 @@ router.post("/follow/:id", passport.authenticate("jwt", { session: false }), (re
 );
 
 
-router.post("/unfollow/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
+router.get("/unfollow/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
 
   User.findById(req.params.id, (err, toremove) => {
     if (err) {
@@ -172,8 +172,38 @@ router.get("/myfollowing", passport.authenticate("jwt", { session: false }), (re
       return res.status(200).json(user.following);
     }
     else {
-      return res.status(400).json({ message: "Error getting followers" });
+      return res.status(400).json({ message: "Error processing request" });
     }
+  })
+})
+
+router.get("/following", passport.authenticate("jwt", { session: false }), (req, res) => {
+
+  User.findById(req.user._id, (err, user) => {
+    if (err) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    User.find({ _id: user.following }, (err, following) => {
+      if (err) {
+        return res.status(400).json({ message: "Error getting users" });
+      }
+      return res.status(200).json(following);
+    })
+  })
+})
+
+
+router.get("/followers", passport.authenticate("jwt", { session: false }), (req, res) => {
+  User.findById(req.user._id, (err, user) => {
+    if (err) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    User.find({ _id: user.followers }, (err, followers) => {
+      if (err) {
+        return res.status(400).json({ message: "Error getting users" });
+      }
+      return res.status(200).json(followers);
+    })
   })
 })
 
@@ -189,11 +219,41 @@ router.get("/name/:id", (req, res) => {
   })
 })
 
-router.get('/search/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/find/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
   User.find({ name: { "$regex": req.params.name, "$options": "i" } }).then(users => { return res.status(200).json(users) })
     .catch(err => { return res.status(400).json({ message: "Error retrieving users" }); });
 });
 
+
+router.get("/user/:id/following", passport.authenticate("jwt", { session: false }), (req, res) => {
+
+  User.findById(req.params.id, (err, user) => {
+    if (err) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    User.find({ _id: user.following }, (err, following) => {
+      if (err) {
+        return res.status(400).json({ message: "Error getting users" });
+      }
+      return res.status(200).json(following);
+    })
+  })
+})
+
+
+router.get("/user/:id/followers", passport.authenticate("jwt", { session: false }), (req, res) => {
+  User.findById(req.params.id, (err, user) => {
+    if (err) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    User.find({ _id: user.followers }, (err, followers) => {
+      if (err) {
+        return res.status(400).json({ message: "Error getting users" });
+      }
+      return res.status(200).json(followers);
+    })
+  })
+})
 
 
 

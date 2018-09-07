@@ -21,9 +21,6 @@ class MyPosts extends Component {
             done: false
         })
         await this.props.getMyPosts();
-        this.setState({
-            done: true
-        })
     }
 
 
@@ -31,7 +28,13 @@ class MyPosts extends Component {
         if (nextProps.error === true)
             //triggering re-render with an error
             this.setState({
-                error: true
+                error: true,
+                done: true
+            })
+
+        if (nextProps.myposts !== this.props.myposts)
+            this.setState({
+                done: true
             })
 
         //actively adding or deleting myposts on actions call
@@ -88,7 +91,7 @@ class MyPosts extends Component {
         }
 
         else if (this.state.done) {
-            return (<div className="Posts">Nothing to display</div>)
+            return (<div className="Posts">You have't shared anything yet! Explore latest posts <a href="/recent"> Here </a></div>)
         }
 
         else {

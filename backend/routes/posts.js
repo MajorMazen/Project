@@ -70,7 +70,7 @@ router.post('/post', passport.authenticate('jwt', { session: false }), (req, res
 // });
 
 
-router.post('/delete/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/delete/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
 
     Post.findById(req.params.id).then(post => {
         if (post) {

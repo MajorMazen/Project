@@ -5,6 +5,7 @@ import AuthService from '../network/AuthService'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { get } from '../actions/postGetActions'
 
 //Fetching posts - arbitrary url in the property
 class PostsOfLink extends Component {
@@ -25,7 +26,6 @@ class PostsOfLink extends Component {
         this.state = {
             error: false,
             errormsg: "",
-            posts: [],
             id: dat.id,
             url: url,
             done: false
@@ -40,18 +40,15 @@ class PostsOfLink extends Component {
 
         //try catch
         try {
-            const data = await this.PostGet.safeGet(this.domain + this.state.url);//like /topic/ or /user/
+            await this.props.get(this.domain + this.state.url);//like /topic/ or /user/
             this.setState({
                 error: false,
-                done: true,
-                posts: data
             })
         }
         catch (e) {
             this.setState({
                 error: true,
                 errormsg: "Fetch error",
-                done: true
             })
         }
 
@@ -65,13 +62,18 @@ class PostsOfLink extends Component {
                 this.props.data.splice(i, 1);
             }
         }
+
+        if (nextProps.data !== this.props.data)
+            this.setState({
+                done: true
+            })
     }
 
     render() {
 
         //calling postitems component, delete depends
-        if (this.state.posts.length > 0) {
-            const postItems = this.state.posts.map(post => (
+        if (this.props.data.length > 0) {
+            const postItems = this.props.data.map(post => (
                 <PostItem post={post} key={post._id} delete={(post.userid === this.state.id)} />
             ));
 
@@ -85,7 +87,7 @@ class PostsOfLink extends Component {
 
                     <div className="Navigation">
                         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                            <div><Link to="/">Back to Home</Link></div>
+                            <div><Link to="/home"> Back to My Home</Link></div>
                         </nav>
                     </div>
 
@@ -114,13 +116,16 @@ class PostsOfLink extends Component {
 
 PostsOfLink.propTypes = {
     delpostid: PropTypes.string,//senses deletion actions
+    get: PropTypes.func.isRequired,
+    data: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({
     delpostid: state.posts.delpostid,
+    data: state.posts.data
 });
 
-export default connect(mapStateToProps)(PostsOfLink);
+export default connect(mapStateToProps, { get })(PostsOfLink);
 
 
 

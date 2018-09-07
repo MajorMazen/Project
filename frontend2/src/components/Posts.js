@@ -10,7 +10,8 @@ class Posts extends Component {
         super(props);
         this.state = {
             error: false,
-            done: false
+            done: false,
+            posting: false
         }
     }
 
@@ -20,9 +21,7 @@ class Posts extends Component {
             done: false
         })
         await this.props.getPosts();
-        this.setState({
-            done: true
-        })
+
     }
 
 
@@ -30,9 +29,25 @@ class Posts extends Component {
         if (nextProps.error === true)
             //triggering re-render with an error
             this.setState({
-                error: true
+                error: true,
+                done: true
             })
 
+        if (nextProps.posts !== this.props.posts)
+            this.setState({
+                done: true
+            })
+
+        if (nextProps.posting === true) {
+            this.setState({
+                posting: true
+            })
+        }
+        else if (nextProps.posting === false) {
+            this.setState({
+                posting: false
+            })
+        }
     }
 
     render() {
@@ -49,12 +64,20 @@ class Posts extends Component {
                         <div className="alert alert-danger" role="alert">
                             {this.props.errormsg}
                         </div>) : null}
+
+                    {this.state.posting ? (
+                        <div>
+                            <div className="alert alert-info">
+                                <strong>Posting on your profile ...</strong>
+                            </div>
+                        </div>) : null}
+
                     {postItems}
                 </div>
             )
         }
         else if (this.state.done) {
-            return (<div className="Posts">Nothing to display</div>)
+            return (<div className="Posts">You aren't following anyone yet! Explore latest posts <a href="/recent"> Here </a></div>)
         }
 
         else {
@@ -76,6 +99,7 @@ Posts.propTypes = {
     errormsg: PropTypes.string,
     posts: PropTypes.array,
     myfollowing: PropTypes.array,
+    posting: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
@@ -83,6 +107,7 @@ const mapStateToProps = (state) => ({
     errormsg: state.posts.errormsg,
     posts: state.posts.posts,
     myfollowing: state.follow.myfollowing,
+    posting: state.posts.posting,
 });
 
 export default connect(mapStateToProps, { getPosts })(Posts);

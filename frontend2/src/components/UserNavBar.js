@@ -69,10 +69,18 @@ class UserNavBar extends Component {
 
                 <div className="Navigation ">
                     <nav className="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between w-100">
-                        {/* <div><Link to="/">Back</Link></div> */}
                         <a className="navbar-brand" href="">
-                            {/* <img src="./img/N_letter.jpg" width="5" height="5" className="d-inline-block align-top" alt="" /> */}
                             {this.props.Name}</a>
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item ">
+                                <a className="nav-link" href={"/user/" + this.props.id + "/followers"} >
+                                    Followers</a>
+                            </li>
+                            <li className="nav-item ">
+                                <a className="nav-link" href={"/user/" + this.props.id + "/following"}>
+                                    Following</a>
+                            </li>
+                        </ul>
                         <FollowButton auth={this.auth} following={this.state.following} follow={this.follow} unfollow={this.unfollow} />
                     </nav>
                 </div>

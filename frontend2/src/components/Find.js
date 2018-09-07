@@ -3,7 +3,7 @@ import PostGet from '../network/PostGet'
 import { Link } from 'react-router-dom'
 
 
-class Search extends Component {
+class Find extends Component {
 
     constructor(props) {
         super(props);
@@ -11,10 +11,17 @@ class Search extends Component {
         this.PostGet = new PostGet();
         this.domain = 'http://localhost:5000/users';
 
+        //set to router link if no props are passed through another component
+        let url;
+        if (!this.props.url) { url = this.props.match.url; }
+        else url = this.props.url;
+
         this.state = {
             error: false,
             errormsg: "",
             users: [],
+            url: url,
+            done: false
         }
     }
 
@@ -23,12 +30,16 @@ class Search extends Component {
     }
 
     //fetch data
-    componentDidMount = async () => {
+    componentWillMount = async () => {
+        this.setState({
+            done: false
+        })
         try {
-            const data = await this.PostGet.safeGet(this.domain + this.props.match.url);
+            const data = await this.PostGet.safeGet(this.domain + this.state.url);
             this.setState({
                 error: false,
-                users: data
+                users: data,
+                done: true
             })
         }
         catch (e) {
@@ -51,7 +62,7 @@ class Search extends Component {
             ));
 
             return (
-                <div className="Search">
+                <div className="Find">
                     {this.state.error ? (
                         <div className="alert alert-danger" role="alert">
                             {this.state.errormsg}
@@ -59,7 +70,7 @@ class Search extends Component {
 
                     <div className="Navigation">
                         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                            <div><Link to="/">Back to Home</Link></div>
+                            <div><Link to="/home">Back to Home</Link></div>
                         </nav>
                     </div>
 
@@ -68,8 +79,22 @@ class Search extends Component {
             )
         }
 
+        else if (this.state.done) {
+            return (
+                <div className="Find">
+                    <div className="Navigation">
+                        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                            <div><Link to="/home">Back to Home</Link></div>
+                        </nav>
+                    </div>
+                    Opss...None...
+            </div>
+            )
+
+        }
+
         else {
-            return (<div className="Search">
+            return (<div className="Find">
                 {this.state.error ? (
                     <div className="alert alert-danger" role="alert">
                         {this.state.errormsg}
@@ -80,7 +105,7 @@ class Search extends Component {
     }
 }
 
-export default Search;
+export default Find;
 
 
 
