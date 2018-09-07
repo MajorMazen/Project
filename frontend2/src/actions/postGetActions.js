@@ -1,5 +1,5 @@
 import PostGet from '../network/PostGet';
-import { GET_POSTS, GET_MY_POSTS, DEL_POST, NEW_POST, ERROR, POSTING } from './types';
+import { GET_POSTS, GET_MY_POSTS, DEL_POST, NEW_POST, ERROR, POSTING, GET } from './types';
 
 const domain = 'http://localhost:5000'; //server domain
 
@@ -31,6 +31,23 @@ export const getMyPosts = () => (dispatch) => {
         dispatch({
             type: GET_MY_POSTS,
             payload: myposts
+        })
+    }).catch((e) => {
+        dispatch({
+            type: ERROR,
+            payload: e
+        })
+    })
+}
+
+//calling this as an action isn't necessary
+export const get = (url) => (dispatch) => {
+    const data = this.PostGet.safeGet(url);//home page, posts of ppl which the user is following
+
+    data.then((data) => {
+        dispatch({
+            type: GET,
+            payload: data
         })
     }).catch((e) => {
         dispatch({

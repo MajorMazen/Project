@@ -8,7 +8,7 @@ import SignUpForm from './SignUpForm';
 import SignInForm from './SignInForm';
 import UserPage from './UserPage';
 import PostsOfLink from './PostsOfLink'
-//import Search from './Search'
+import Search from './Search'
 
 const Root = ({ store }) => (
     //defining provider and passing in the variable store, which comes as as input to the function root (called in index.js)
@@ -22,7 +22,7 @@ const Root = ({ store }) => (
                 <Route exact path="/login" component={SignInForm} />
                 <Route exact path="/topic/:name" component={PostsOfLink} />
                 <Route exact path="/post/:id" component={PostsOfLink} />
-                {/* <Route exact path="/search/:name" component={Search} /> */}
+                <Route exact path="/search/:name" component={Search} />
             </Switch>
         </Router>
     </Provider>

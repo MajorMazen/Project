@@ -27,27 +27,31 @@ class PostsOfLink extends Component {
             errormsg: "",
             posts: [],
             id: dat.id,
-            url: url
+            url: url,
+            done: false
         }
     }
 
-    shouldComponentUpdate() {
-        return true;
-    }
-
     //fetch data
-    componentDidMount = async () => {
+    componentWillMount = async () => {
+        this.setState({
+            done: false
+        })
+
+        //try catch
         try {
             const data = await this.PostGet.safeGet(this.domain + this.state.url);//like /topic/ or /user/
             this.setState({
                 error: false,
+                done: true,
                 posts: data
             })
         }
         catch (e) {
             this.setState({
                 error: true,
-                errormsg: "Fetch error"
+                errormsg: "Fetch error",
+                done: true
             })
         }
 
@@ -56,9 +60,9 @@ class PostsOfLink extends Component {
     componentWillReceiveProps(nextProps) { //happens when actions dispatched make changes to state tree
 
         if (nextProps.delpostid !== this.props.delpostid) {
-            let i = this.state.posts.findIndex(post => post._id === nextProps.delpostid);
+            let i = this.props.data.findIndex(post => post._id === nextProps.delpostid);
             if (i > -1) {
-                this.state.posts.splice(i, 1);
+                this.props.data.splice(i, 1);
             }
         }
     }
@@ -90,13 +94,19 @@ class PostsOfLink extends Component {
             )
         }
 
+        else if (this.state.done) {
+            return (<div className="PostsOfLink">Nothing to display</div>)
+        }
+
         else {
-            return (<div className="PostsOfLink">
-                {this.state.error ? (
-                    <div className="alert alert-danger" role="alert">
-                        {this.state.errormsg}
-                    </div>) : null}
-            </div>)
+            return (
+                <div className="PostsOfLink">
+                    {this.state.error ? (
+                        <div className="alert alert-danger" role="alert">
+                            {this.props.errormsg}
+                        </div>) : null}
+                </div>
+            )
         }
     }
 }
@@ -107,7 +117,7 @@ PostsOfLink.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    delpostid: state.posts.delpostid
+    delpostid: state.posts.delpostid,
 });
 
 export default connect(mapStateToProps)(PostsOfLink);

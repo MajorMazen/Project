@@ -10,13 +10,20 @@ class MyPosts extends Component {
         super(props);
         this.state = {
             error: false,
-            posting: false
+            done: false,
+            posting: false,
         }
     }
 
     //fetch data
     componentWillMount = async () => {
+        this.setState({
+            done: false
+        })
         await this.props.getMyPosts();
+        this.setState({
+            done: true
+        })
     }
 
 
@@ -49,6 +56,7 @@ class MyPosts extends Component {
                 posting: false
             })
         }
+
     }
 
 
@@ -79,13 +87,19 @@ class MyPosts extends Component {
             )
         }
 
+        else if (this.state.done) {
+            return (<div className="Posts">Nothing to display</div>)
+        }
+
         else {
-            return (<div className="Posts">
-                {this.state.error ? (
-                    <div className="alert alert-danger" role="alert">
-                        {this.props.errormsg}
-                    </div>) : null}
-            </div>)
+            return (
+                <div className="MyPosts">
+                    {this.state.error ? (
+                        <div className="alert alert-danger" role="alert">
+                            {this.props.errormsg}
+                        </div>) : null}
+                </div>
+            )
         }
     }
 }
@@ -97,7 +111,7 @@ MyPosts.propTypes = {
     myposts: PropTypes.array,
     newpost: PropTypes.object,
     delpostid: PropTypes.string,
-    posting: PropTypes.bool
+    posting: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
@@ -106,7 +120,7 @@ const mapStateToProps = (state) => ({
     myposts: state.posts.myposts,
     newpost: state.posts.newpost,
     delpostid: state.posts.delpostid,
-    posting: state.posts.posting
+    posting: state.posts.posting,
 });
 
 export default connect(mapStateToProps, { getMyPosts })(MyPosts);

@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router'
 
 class Navbar extends Component {
+
+    updateVal = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
+    search = (e) => {
+        e.preventDefault();
+        this.props.history.push("/search/" + this.state.search)
+    }
 
     render() {
         return (
@@ -10,7 +20,11 @@ class Navbar extends Component {
                         {/* <img src="./img/N_letter.jpg" width="5" height="5" className="d-inline-block align-top" alt="" /> */}
                         News Net</a>
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item ">
+                        <li className={"nav-item " + this.props.active[0]}>
+                            <a className="nav-link" href="/" >
+                                Home </a>
+                        </li>
+                        <li className={"nav-item " + this.props.active[1]}>
                             <a className="nav-link" href="/me" >
                                 {this.props.Name + " Profile"}</a>
                         </li>
@@ -20,9 +34,9 @@ class Navbar extends Component {
                         </li>
                     </ul>
 
-                    <form className="form-inline" >
-                        <input className="form-control" type="search" name="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-primary" type="submit">Search</button>
+                    <form className="form-inline" onSubmit={this.search}>
+                        <input className="form-control" type="search" name="search" placeholder="Find User" aria-label="Search" onChange={this.updateVal} />
+                        <button className="btn btn-primary" type="submit" >Search</button>
                     </form>
                 </nav>
             </div>
@@ -30,4 +44,4 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

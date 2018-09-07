@@ -28,7 +28,7 @@ class App extends Component {
             if (this.props.match.url === "/") {
                 return (
                     <div className="App">
-                        <NavBar Name={this.props.name} logout={this.props.logout} />
+                        <NavBar Name={this.props.name} logout={this.props.logout} active={["active", "", ""]} />
                         <Posts />
                         <PostLinkForm />
                     </div>
@@ -39,7 +39,7 @@ class App extends Component {
             else if (this.props.match.url === "/me") {
                 return (
                     <div className="App">
-                        <NavBar Name={this.props.name} logout={this.props.logout} />
+                        <NavBar Name={this.props.name} logout={this.props.logout} active={["", "active", ""]} />
                         <MyPosts />
                         <PostLinkForm />
                     </div>

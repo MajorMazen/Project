@@ -9,13 +9,20 @@ class Posts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: false
+            error: false,
+            done: false
         }
     }
 
     //fetch data
     componentWillMount = async () => {
+        this.setState({
+            done: false
+        })
         await this.props.getPosts();
+        this.setState({
+            done: true
+        })
     }
 
 
@@ -25,10 +32,10 @@ class Posts extends Component {
             this.setState({
                 error: true
             })
+
     }
 
     render() {
-
         //calling postitems component, delete enabled
         if (this.props.posts.length > 0) {
             const postItems = this.props.posts.map(post => (
@@ -46,14 +53,19 @@ class Posts extends Component {
                 </div>
             )
         }
+        else if (this.state.done) {
+            return (<div className="Posts">Nothing to display</div>)
+        }
 
         else {
-            return (<div className="Posts">
-                {this.state.error ? (
-                    <div className="alert alert-danger" role="alert">
-                        {this.props.errormsg}
-                    </div>) : null}
-            </div>)
+            return (
+                <div className="Posts">
+                    {this.state.error ? (
+                        <div className="alert alert-danger" role="alert">
+                            {this.props.errormsg}
+                        </div>) : null}
+                </div>
+            )
         }
     }
 }

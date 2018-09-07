@@ -116,15 +116,15 @@ router.get('/post/:id', (req, res) => {
 router.get('/topic/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
     Link.find({ linktopics: req.params.name }).then(links => {
         const linkids = links.map(link => (link._id))
-        Post.find({ linkid: linkids }).then(posts => { return res.status(200).json(posts) })
+        Post.find({ linkid: linkids }, null, { sort: { date: -1 } }).then(posts => { return res.status(200).json(posts) })
             .catch(err => { return res.status(400).json({ message: "Error retrieving posts" }); }) //post find catch
     }).catch(err => { return res.status(400).json({ message: "Error retrieving posts" }); })//link find catch
 })
 
-// router.get('/recent', passport.authenticate('jwt', { session: false }), (req, res) => {
-//     Post.find({ userid: req.user._id }, null, { sort: { date: -1 } }).then(post => { return res.status(200).json(post) })
-//         .catch(err => { return res.status(400).json({ message: "Error retrieving posts" }); });
-// });
+router.get('/recent', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Post.find({}, {}, { sort: { date: -1 }, limit: 1000, skip: 0 }).then(posts => { return res.status(200).json(posts) })
+        .catch(err => { return res.status(400).json({ message: "Error retrieving posts" }); });
+});
 
 
 

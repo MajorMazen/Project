@@ -1,9 +1,10 @@
-import { GET_POSTS, GET_MY_POSTS, NEW_POST, DEL_POST, ERROR, POSTING } from '../actions/types';
+import { GET_POSTS, GET_MY_POSTS, NEW_POST, DEL_POST, ERROR, POSTING, GET } from '../actions/types';
 
 const initialState = {
     posts: [],
     myposts: [],
     newpost: {},
+    data: [],
     posting: false,
     delpostid: null,
     error: false,
@@ -18,37 +19,51 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 posts: action.payload,
-                error: false
+                error: false,
+                getting: false,
             };
         case GET_MY_POSTS:
             return {
                 ...state,
                 myposts: action.payload,
                 error: false,
+                getting: false,
             };
+        case GET:
+            return {
+                ...state,
+                data: action.payload,
+                getting: false,
+                error: false
+            }
         case POSTING:
             return {
                 ...state,
-                posting: action.payload //true
+                posting: action.payload, //true
             }
         case NEW_POST:
             return {
                 ...state,
                 newpost: action.payload,
                 error: false,
-                posting: false
+                posting: false,
+                getting: false
             };
         case DEL_POST:
             return {
                 ...state,
                 delpostid: action.payload.id,
-                error: false
+                error: false,
+                getting: false,
+                posting: false
             };
         case ERROR: //error post, get or delete
             return {
                 ...state,
                 error: true,
-                errormsg: action.payload.message
+                errormsg: action.payload.message,
+                getting: false,
+                posting: false
             };
         default:
             return state;
