@@ -1,7 +1,7 @@
 import AuthService from '../network/AuthService';
 import { LOGIN, REGISTER, IS_AUTH, LOGOUT, GET_USER_INFO, ERROR } from './types';
 
-const domain = ''; //server domain
+const domain = 'http://localhost:5000'; //server domain
 
 //for simplicity, this calls in class AuthService (Generic class for authorization service)
 this.AuthService = new AuthService();

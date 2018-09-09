@@ -15,7 +15,7 @@ class PostsOfLink extends Component {
 
         this.AuthService = new AuthService();
         this.PostGet = new PostGet();
-        this.domain = '/posts'; //server domain
+        this.domain = 'http://localhost:5000/posts'; //server domain
         const dat = this.AuthService.getUserInfo();
 
         //set to router link if no props are passed through another component

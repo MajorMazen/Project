@@ -1,7 +1,7 @@
 import PostGet from '../network/PostGet';
 import { FOLLOW_USER, UNFOLLOW_USER, GET_MY_FOLLOWING, ERROR } from './types';
 
-const domain = ''; //server domain
+const domain = 'http://localhost:5000'; //server domain
 
 //this calls in class PostGet (Generic class for making API requests)
 this.PostGet = new PostGet();
