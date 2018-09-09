@@ -1,7 +1,7 @@
 import PostGet from '../network/PostGet';
 import { GET_POSTS, GET_MY_POSTS, DEL_POST, NEW_POST, ERROR, POSTING, GET } from './types';
 
-const domain = 'http://localhost:5000'; //server domain
+const domain = ''; //server domain
 
 //this calls in class PostGet (Generic class for making API requests)
 this.PostGet = new PostGet();
