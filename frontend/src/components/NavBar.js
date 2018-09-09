@@ -57,7 +57,7 @@ class Navbar extends Component {
 
                         <form className="form-inline" onSubmit={this.search}>
                             <input className="form-control" type="search" name="search" placeholder="Find Users" aria-label="Search" onChange={this.updateVal} />
-                            <button className="btn btn-primary" type="submit" >Search</button>
+                            <button className="btn btn-primary" type="submit" >Find Users</button>
                         </form>
                     </div>
                 </nav>
