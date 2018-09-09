@@ -89,6 +89,13 @@ class MyPosts extends Component {
                 </div>
             )
         }
+        else if (this.state.posting) {
+            return (<div>
+                <div className="alert alert-info" style={{ fontSize: "20px" }}>
+                    <strong>Posting on your profile ...</strong>
+                </div>
+            </div>)
+        }
 
         else if (this.state.done) {
             return (<div className="Posts" style={{ fontSize: "20px" }}>You haven't shared anything yet! Explore latest posts <a href="/recent"> Here </a></div>)
