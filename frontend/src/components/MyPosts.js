@@ -92,7 +92,7 @@ class MyPosts extends Component {
         else if (this.state.posting) {
             return (<div>
                 <div className="alert alert-info" style={{ fontSize: "20px" }}>
-                    <strong>Posting on your profile ...</strong>
+                    <strong>Posting link ...</strong>
                 </div>
             </div>)
         }
